@@ -134,20 +134,21 @@ export const ResultScreen: React.FC<Props> = ({
       </div>
       <p className="mt-2 text-center text-[12px] text-muted">미리보기는 소리 없이 나와요. 완성 영상은 이름 장면 2초가 더해져 7~12초예요.</p>
 
-      {/* 만든 사람 이름 */}
+      {/* 닉네임 */}
       <section className="mt-8">
-        <SectionTitle hint="첫 장면에 크게 들어가요">만든 사람 이름</SectionTitle>
+        <SectionTitle hint="첫 장면에 크게 들어가요">닉네임</SectionTitle>
         <input
           id="creator-name"
           value={creatorName}
           maxLength={10}
           onChange={(e) => onChangeName(e.target.value.slice(0, 10))}
           disabled={making}
-          placeholder="예: 민지"
+          placeholder="예: 떡볶이요정, 픽셀용사"
           className="w-full rounded-2xl border border-line bg-surface px-4 py-3.5 text-[16px] font-semibold placeholder:font-normal placeholder:text-muted/60 focus:border-ink focus:outline-none"
         />
         <p className="mt-2 text-[12px] text-muted">
-          첫 장면: “{creatorName.trim() ? `${creatorName.trim()}의 쇼츠` : '나의 AI 쇼츠'}” · 비워 두면 이름 없이 만들어요
+          SNS에 올라가는 영상이니 실명 말고 닉네임을 써 주세요. 첫 장면: “
+          {creatorName.trim() ? `${creatorName.trim()}의 쇼츠` : '나의 AI 쇼츠'}”
         </p>
       </section>
 
