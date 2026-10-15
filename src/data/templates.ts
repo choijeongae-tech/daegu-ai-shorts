@@ -17,6 +17,7 @@
  * ※ 서버가 이 파일을 직접 불러오므로 타입은 반드시 `import type`으로만 가져옵니다.
  */
 import type { ShortsTemplate, MoodInfo, TemplateId, MoodId, ShortsResult } from '../types';
+import { pickCaptionSet } from './captionPool.ts';
 
 /** 강아지·쿼카 기사 영상에 실제로 쓴 프롬프트 (캐릭터 그림을 첨부해 만든 영상) */
 const PIXEL_QUEST_PROMPT =
@@ -286,6 +287,8 @@ export function buildFallbackResult(
   subjectId: string,
   keyword = '',
   protagonistId?: string | null,
+  moodId: MoodId = 'cheerful',
+  excludeCaptions?: readonly string[],
 ): ShortsResult {
   const kwTag = keyword.trim() ? `#${keyword.trim().replace(/[\s,#]+/g, '').slice(0, 15)}` : '';
   const subject = template.subjects.find((s) => s.id === subjectId) || template.subjects[0];
@@ -295,7 +298,11 @@ export function buildFallbackResult(
     ? template.fallback.sceneKo.replace(/^크리에이터가/, withSubjectParticle(protagonist.nameKo))
     : template.fallback.sceneKo;
   return {
-    captions: (subject.captions || template.fallback.captions).map((c) => fillName(c, protagonist?.nameKo)) as [
+    captions: (
+      pickCaptionSet(template.id, subject.id, moodId, excludeCaptions, protagonist?.nameKo) ||
+      subject.captions ||
+      template.fallback.captions
+    ).map((c) => fillName(c, protagonist?.nameKo)) as [
       string,
       string,
       string,
@@ -307,8 +314,8 @@ export function buildFallbackResult(
         : `${sceneKo} (대사 없이 음악·효과음만)`,
     flowPrompt:
       subject.flowPromptOverride || buildFlowPrompt(template, subject.id, template.fallback.sceneEn, protagonist?.id),
-    videoUrl: `/videos/${videoBaseName(template, subject.id, protagonist?.id)}.mp4`,
-    posterUrl: `/videos/${videoBaseName(template, subject.id, protagonist?.id)}.jpg`,
+    videoUrl: `videos/${videoBaseName(template, subject.id, protagonist?.id)}.mp4`,
+    posterUrl: `videos/${videoBaseName(template, subject.id, protagonist?.id)}.jpg`,
     canvaUrl:
       (protagonist && subject.canvaUrlByProtagonist?.[protagonist.id]) || subject.canvaUrl || template.canvaUrl,
     hashtags: [...template.hashtags, ...(kwTag ? [kwTag] : [])],

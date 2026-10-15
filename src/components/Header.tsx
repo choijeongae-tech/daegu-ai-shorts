@@ -1,6 +1,7 @@
 import React from 'react';
 import { QrCode } from 'lucide-react';
 import type { AppStep } from '../types';
+import { IS_STATIC } from '../config/runtime';
 
 const STEPS: { key: AppStep; label: string }[] = [
   { key: 'quiz', label: '퀴즈' },
@@ -17,7 +18,10 @@ export const Header: React.FC<{
   const index = STEPS.findIndex((s) => s.key === step);
 
   return (
-    <header className="sticky top-0 z-30 bg-paper/90 px-5 pb-3 pt-[max(0.75rem,env(safe-area-inset-top))] backdrop-blur-md">
+    <header
+      className="sticky z-30 bg-paper/90 px-5 pb-3 pt-3 backdrop-blur-md"
+      style={{ top: 'env(safe-area-inset-top, 0px)' }}
+    >
       <div className="flex items-center justify-between">
         <button type="button" onClick={onHome} className="flex items-center gap-2" aria-label="처음 화면으로">
           <span className="rec-dot h-2.5 w-2.5 rounded-full bg-rec" />
@@ -33,6 +37,7 @@ export const Header: React.FC<{
               처음부터
             </button>
           )}
+          {!IS_STATIC && (
           <button
             type="button"
             onClick={onOpenQR}
@@ -41,6 +46,7 @@ export const Header: React.FC<{
           >
             <QrCode className="h-[18px] w-[18px]" />
           </button>
+          )}
         </div>
       </div>
 

@@ -1,7 +1,6 @@
 import React from 'react';
-import { Download } from 'lucide-react';
 import type { ShortsResult, ShortsTemplate } from '../types';
-import { BottomBar, CopyButton, PrimaryButton, SectionTitle } from './ui';
+import { BottomBar, CopyButton, PrimaryButton, SaveVideoButton, SectionTitle } from './ui';
 
 interface Props {
   template: ShortsTemplate;
@@ -54,14 +53,11 @@ export const ResultScreen: React.FC<Props> = ({ template, subjectLabel, result, 
               preload="metadata"
             />
           </div>
-          <a
-            href={result.videoUrl}
-            download
-            className="mt-4 flex w-full items-center justify-center gap-2 rounded-full bg-white py-3 text-[15px] font-bold text-ink active:scale-[0.98]"
-          >
-            <Download className="h-4 w-4" />
-            영상 저장하기
-          </a>
+          <SaveVideoButton
+            url={result.videoUrl}
+            filename={result.videoUrl.split('/').pop() || 'ai-shorts.mp4'}
+            className="mt-4 bg-white text-ink"
+          />
           <p className="mt-2 text-center text-[12px] text-white/60">
             휴대폰에 따라 사진첩 또는 파일 앱의 [다운로드]에 저장돼요.
           </p>

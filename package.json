@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
     "lint": "tsc --noEmit",
-    "prompts": "tsx scripts/export-prompts.ts"
+    "prompts": "tsx scripts/export-prompts.ts",
+    "build:static": "VITE_STATIC=true vite build --base ./ --outDir dist-static"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",

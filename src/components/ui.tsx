@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Check, Copy } from 'lucide-react';
+import { Check, Copy, Download, Loader2 } from 'lucide-react';
+import { IS_STATIC, getDownloads } from '../config/runtime';
 import type { ShortsTemplate } from '../types';
 
 export async function copyText(text: string): Promise<boolean> {
@@ -146,3 +147,53 @@ export const SectionTitle: React.FC<{ children: React.ReactNode; hint?: string }
     {hint && <span className="text-[12px] text-muted">{hint}</span>}
   </div>
 );
+
+/**
+ * 영상 저장 버튼.
+ * AI Studio 버전은 일반 다운로드 링크, claude.ai 게시 버전은 다운로드 기능(확인 창)을 씁니다.
+ */
+export const SaveVideoButton: React.FC<{ url: string; filename: string; className?: string }> = ({
+  url,
+  filename,
+  className = '',
+}) => {
+  const [state, setState] = useState<'idle' | 'working' | 'saved' | 'error'>('idle');
+  const base = `flex w-full items-center justify-center gap-2 rounded-full py-3 text-[15px] font-bold active:scale-[0.98] ${className}`;
+
+  if (!IS_STATIC) {
+    return (
+      <a href={url} download={filename} className={base}>
+        <Download className="h-4 w-4" />
+        영상 저장하기
+      </a>
+    );
+  }
+
+  const save = async () => {
+    setState('working');
+    try {
+      const downloads = await getDownloads();
+      if (!downloads) throw new Error('unavailable');
+      const blob = await (await fetch(url)).blob();
+      await downloads.save({ filename, data: blob });
+      setState('saved');
+    } catch (e) {
+      const code = (e as { code?: string })?.code;
+      setState(code === 'declined' ? 'idle' : 'error');
+    }
+  };
+
+  return (
+    <div className="w-full">
+      <button type="button" onClick={save} disabled={state === 'working'} className={base}>
+        {state === 'working' ? <Loader2 className="h-4 w-4 animate-spin" /> : state === 'saved' ? <Check className="h-4 w-4" /> : <Download className="h-4 w-4" />}
+        {state === 'saved' ? '저장했어요' : state === 'working' ? '준비 중' : '영상 저장하기'}
+      </button>
+      {state === 'error' && (
+        <p className="mt-2 text-center text-[12px] leading-relaxed opacity-80">
+          이 화면에서는 저장할 수 없어요. 부스 스태프에게 말씀해 주시면 영상을 보내 드려요.
+        </p>
+      )}
+    </div>
+  );
+};

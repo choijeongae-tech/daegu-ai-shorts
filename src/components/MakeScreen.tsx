@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Check, Loader2 } from 'lucide-react';
 import { TEMPLATES, MOODS, getTemplate, buildFallbackResult } from '../data/templates';
 import { BOOTH } from '../config/booth';
+import { IS_STATIC } from '../config/runtime';
 import { getSessionId } from '../services/session';
 import type { GenerateResponse, MoodId, ShortsResult, TemplateId } from '../types';
 import { BottomBar, Chip, PrimaryButton, SectionTitle, TemplateThumb } from './ui';
@@ -13,6 +14,7 @@ interface Props {
   moodId: MoodId;
   keyword: string;
   remaining: number | null;
+  previousCaptions?: readonly string[];
   onChange: (patch: {
     templateId?: TemplateId;
     protagonistId?: string | null;
@@ -27,6 +29,7 @@ export const MakeScreen: React.FC<Props> = ({
   moodId,
   keyword,
   remaining,
+  previousCaptions,
   onChange,
   onGenerated,
 }) => {
@@ -38,6 +41,14 @@ export const MakeScreen: React.FC<Props> = ({
 
   const generate = async () => {
     if (!template || !subjectId || !ready) return;
+    if (IS_STATIC) {
+      onGenerated(
+        buildFallbackResult(template, subjectId, '', protagonistId, moodId, previousCaptions),
+        null,
+        '이 자막은 AI(Claude)가 미리 써 둔 문장 중에서 골랐어요. [자막 다시 만들기]를 누르면 다른 자막이 나와요.',
+      );
+      return;
+    }
     setLoading(true);
     setError(null);
     try {
@@ -66,7 +77,7 @@ export const MakeScreen: React.FC<Props> = ({
       throw new Error(body.error || 'BAD_RESPONSE');
     } catch {
       // 서버에 닿지 않아도 체험은 이어갑니다
-      onGenerated(buildFallbackResult(template, subjectId, keyword, protagonistId), remaining, '인터넷 연결이 불안정해 준비된 문구로 보여드려요.');
+      onGenerated(buildFallbackResult(template, subjectId, keyword, protagonistId, moodId), remaining, '인터넷 연결이 불안정해 준비된 문구로 보여드려요.');
     } finally {
       setLoading(false);
     }
@@ -147,6 +158,7 @@ export const MakeScreen: React.FC<Props> = ({
             </div>
           </section>
 
+          {!IS_STATIC && (
           <section>
             <SectionTitle hint="선택">자막에 넣고 싶은 말</SectionTitle>
             <input
@@ -158,6 +170,7 @@ export const MakeScreen: React.FC<Props> = ({
               className="w-full rounded-2xl border border-line bg-surface px-4 py-3.5 text-[15px] placeholder:text-muted/60 focus:border-ink focus:outline-none"
             />
           </section>
+          )}
         </div>
       )}
 
@@ -179,9 +192,11 @@ export const MakeScreen: React.FC<Props> = ({
             '내 자막 만들기'
           )}
         </PrimaryButton>
-        <p className="mt-2 text-center text-[12px] text-muted">
-          AI 생성 {remaining ?? BOOTH.maxGenerations}회 남음
-        </p>
+        {!IS_STATIC && (
+          <p className="mt-2 text-center text-[12px] text-muted">
+            AI 생성 {remaining ?? BOOTH.maxGenerations}회 남음
+          </p>
+        )}
       </BottomBar>
     </div>
   );

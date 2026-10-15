@@ -1,9 +1,9 @@
 import React from 'react';
-import { Download, ExternalLink } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 import { BOOTH } from '../config/booth';
 import { COMMON_HASHTAGS } from '../data/templates';
 import type { ShortsResult, ShortsTemplate } from '../types';
-import { BottomBar, CopyButton, SectionTitle, TemplateThumb } from './ui';
+import { BottomBar, CopyButton, SaveVideoButton, SectionTitle, TemplateThumb } from './ui';
 
 interface Props {
   template: ShortsTemplate;
@@ -13,7 +13,7 @@ interface Props {
 }
 
 const STEPS = [
-  { title: '내 AI 영상 저장하기', body: '아래 [영상 저장하기]를 눌러 휴대폰에 저장해요.' },
+  { title: '내 AI 영상 저장하기', body: '[영상 저장하기]를 눌러 휴대폰에 저장해요.' },
   { title: '썸네일을 눌러 캔바 템플릿 열기', body: '캔바 앱이나 브라우저에서 템플릿이 열려요.' },
   { title: '영상 넣기', body: '캔바 [업로드]에서 저장한 영상을 올리고, 템플릿의 영상 칸에 끌어다 놓아요.' },
   { title: '장면마다 자막 붙여 넣기', body: '자막 칸을 누르고, 아래 자막을 하나씩 복사해 넣어요.' },
@@ -46,14 +46,13 @@ export const FinishScreen: React.FC<Props> = ({ template, result, onBack, onRest
         </span>
       </a>
 
-      <a
-        href={result.videoUrl}
-        download
-        className="mx-auto mt-5 flex w-full max-w-[320px] items-center justify-center gap-2 rounded-full border border-line bg-surface py-3 text-[15px] font-bold active:bg-paper"
-      >
-        <Download className="h-4 w-4" />
-        영상 저장하기
-      </a>
+      <div className="mx-auto mt-5 max-w-[320px]">
+        <SaveVideoButton
+          url={result.videoUrl}
+          filename={result.videoUrl.split('/').pop() || 'ai-shorts.mp4'}
+          className="border border-line bg-surface text-ink"
+        />
+      </div>
       <p className="mt-3 text-center text-[13px] text-muted">캔바 계정이 없다면 부스 태블릿에서 만들 수 있어요.</p>
 
       <ol className="mt-8 space-y-4">

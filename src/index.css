@@ -16,13 +16,14 @@
   --color-ok-soft: #e3f6ed;
 
   --font-display: 'Black Han Sans', 'Pretendard Variable', Pretendard, sans-serif;
-  --font-sans: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, 'Apple SD Gothic Neo',
+  --font-sans: 'Pretendard Variable', Pretendard, 'Noto Sans KR', -apple-system, BlinkMacSystemFont, system-ui, 'Apple SD Gothic Neo',
     'Noto Sans KR', 'Malgun Gothic', sans-serif;
 }
 
 @layer base {
   html {
     background: var(--color-paper);
+    color-scheme: light;
   }
   body {
     font-family: var(--font-sans);

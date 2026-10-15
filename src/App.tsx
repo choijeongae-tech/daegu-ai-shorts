@@ -74,6 +74,7 @@ export const App: React.FC = () => {
             moodId={moodId}
             keyword={keyword}
             remaining={remaining}
+            previousCaptions={result?.captions}
             onChange={(p) => {
               if (p.templateId !== undefined) setTemplateId(p.templateId);
               if (p.protagonistId !== undefined) setProtagonistId(p.protagonistId);

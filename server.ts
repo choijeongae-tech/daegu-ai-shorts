@@ -124,7 +124,7 @@ app.post('/api/generate', async (req, res) => {
 
   const userKeyword = typeof keyword === 'string' ? keyword.trim().slice(0, 30) : '';
   const protagonist = getProtagonist(template, typeof protagonistId === 'string' ? protagonistId : null);
-  const fallback = buildFallbackResult(template, subject.id, userKeyword, protagonist?.id);
+  const fallback = buildFallbackResult(template, subject.id, userKeyword, protagonist?.id, moodId);
   const sid = sessionId.slice(0, 64);
 
   let rec = sessions.get(sid);
