@@ -150,17 +150,22 @@ export const SectionTitle: React.FC<{ children: React.ReactNode; hint?: string }
 
 /**
  * 영상 저장 버튼.
- * AI Studio 버전은 일반 다운로드 링크, claude.ai 게시 버전은 다운로드 기능(확인 창)을 씁니다.
+ * - 일반 웹사이트(AI Studio, GitHub Pages 등): 일반 다운로드 링크
+ * - claude.ai 게시 페이지: 다운로드 확인 창을 먼저 시도하고, 안 되면 '새 창에서 열기'로 저장하게 안내
  */
-export const SaveVideoButton: React.FC<{ url: string; filename: string; className?: string }> = ({
+export const SaveVideoButton: React.FC<{ url: string; filename: string; className?: string; dark?: boolean }> = ({
   url,
   filename,
   className = '',
+  dark = false,
 }) => {
   const [state, setState] = useState<'idle' | 'working' | 'saved' | 'error'>('idle');
   const base = `flex w-full items-center justify-center gap-2 rounded-full py-3 text-[15px] font-bold active:scale-[0.98] ${className}`;
+  const inClaude = IS_STATIC && typeof window !== 'undefined' && !!(window as unknown as { claude?: unknown }).claude;
+  const absoluteUrl = typeof window !== 'undefined' ? new URL(url, window.location.href).href : url;
+  const hint = dark ? 'text-white/70' : 'text-muted';
 
-  if (!IS_STATIC) {
+  if (!inClaude) {
     return (
       <a href={url} download={filename} className={base}>
         <Download className="h-4 w-4" />
@@ -186,14 +191,27 @@ export const SaveVideoButton: React.FC<{ url: string; filename: string; classNam
   return (
     <div className="w-full">
       <button type="button" onClick={save} disabled={state === 'working'} className={base}>
-        {state === 'working' ? <Loader2 className="h-4 w-4 animate-spin" /> : state === 'saved' ? <Check className="h-4 w-4" /> : <Download className="h-4 w-4" />}
+        {state === 'working' ? (
+          <Loader2 className="h-4 w-4 animate-spin" />
+        ) : state === 'saved' ? (
+          <Check className="h-4 w-4" />
+        ) : (
+          <Download className="h-4 w-4" />
+        )}
         {state === 'saved' ? '저장했어요' : state === 'working' ? '준비 중' : '영상 저장하기'}
       </button>
-      {state === 'error' && (
-        <p className="mt-2 text-center text-[12px] leading-relaxed opacity-80">
-          이 화면에서는 저장할 수 없어요. 부스 스태프에게 말씀해 주시면 영상을 보내 드려요.
-        </p>
-      )}
+      <a
+        href={absoluteUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`mt-2 block text-center text-[13px] font-semibold underline underline-offset-2 ${hint}`}
+      >
+        저장이 안 되면 여기를 눌러 새 창에서 영상 열기
+      </a>
+      <p className={`mt-1 text-center text-[12px] leading-relaxed ${hint}`}>
+        {state === 'error' ? '이 화면에서는 바로 저장이 안 돼요. ' : ''}새 창에서 아이폰은 공유 → [비디오 저장],
+        안드로이드는 ⋮ → [다운로드]를 눌러요.
+      </p>
     </div>
   );
 };

@@ -57,10 +57,8 @@ export const ResultScreen: React.FC<Props> = ({ template, subjectLabel, result, 
             url={result.videoUrl}
             filename={result.videoUrl.split('/').pop() || 'ai-shorts.mp4'}
             className="mt-4 bg-white text-ink"
+            dark
           />
-          <p className="mt-2 text-center text-[12px] text-white/60">
-            휴대폰에 따라 사진첩 또는 파일 앱의 [다운로드]에 저장돼요.
-          </p>
 
           <p className="mt-5 border-t border-white/15 pt-4 text-[13px] font-semibold text-white/60">구글 Flow에 이렇게 주문했어요</p>
           <p className="mt-1 text-[15px] font-semibold leading-snug">{result.sceneKo}</p>
