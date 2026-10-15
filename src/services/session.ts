@@ -14,6 +14,7 @@ export interface SavedState {
   subjectId: string | null;
   moodId: MoodId;
   keyword: string;
+  creatorName?: string;
   result: ShortsResult | null;
   remaining: number | null;
 }

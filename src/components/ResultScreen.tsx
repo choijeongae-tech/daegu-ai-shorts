@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { RefreshCw } from 'lucide-react';
 import type { ShortsResult, ShortsTemplate } from '../types';
-import { canCompose, captionIndexAt, composeShorts, type ComposeResult } from '../services/compose';
+import { CAPTION_CENTER, canCompose, captionIndexAt, composeShorts, type ComposeResult } from '../services/compose';
 import { BottomBar, CopyButton, PrimaryButton, SaveVideoButton, SectionTitle } from './ui';
 
 interface Props {
@@ -13,6 +13,8 @@ interface Props {
   onShuffle: () => void;
   onComposed: (composed: ComposeResult) => void;
   onBack: () => void;
+  creatorName: string;
+  onChangeName: (name: string) => void;
 }
 
 const MAX_CAPTION = 24;
@@ -26,6 +28,8 @@ export const ResultScreen: React.FC<Props> = ({
   onShuffle,
   onComposed,
   onBack,
+  creatorName,
+  onChangeName,
 }) => {
   const previewRef = useRef<HTMLVideoElement>(null);
   const [current, setCurrent] = useState(0);
@@ -52,7 +56,13 @@ export const ResultScreen: React.FC<Props> = ({
     setError(null);
     setProgress(0);
     previewRef.current?.pause();
-    composeShorts(result.videoUrl, result.captions, setProgress)
+    composeShorts({
+      videoUrl: result.videoUrl,
+      captions: result.captions,
+      name: creatorName.trim(),
+      subtitle: template.title,
+      onProgress: setProgress,
+    })
       .then((composed) => {
         setProgress(null);
         onComposed(composed);
@@ -89,9 +99,27 @@ export const ResultScreen: React.FC<Props> = ({
         <span className="absolute right-2 top-2 rounded-full bg-black/45 px-2 py-0.5 text-[10px] font-bold text-white">
           AI로 만든 영상
         </span>
-        <div className="pointer-events-none absolute inset-x-3 bottom-[18%] flex justify-center">
+        <div
+          className="pointer-events-none absolute inset-x-3 flex -translate-y-1/2 justify-center"
+          style={{ top: `${CAPTION_CENTER * 100}%` }}
+        >
           <span className="rounded-lg bg-[rgba(10,10,25,0.62)] px-3 py-1.5 text-center font-display text-[15px] leading-snug text-white">
             {result.captions[current]}
+          </span>
+        </div>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 flex h-[17%] items-end justify-center bg-gradient-to-b from-transparent to-black/55 pb-[5%]">
+          <img
+            src="logo.png"
+            alt="대구1인미디어센터"
+            className="max-h-[22px] max-w-[52%] object-contain"
+            onError={(e) => {
+              const el = e.currentTarget;
+              el.style.display = 'none';
+              el.nextElementSibling?.removeAttribute('hidden');
+            }}
+          />
+          <span hidden className="text-[10px] font-extrabold text-white">
+            대구1인미디어센터
           </span>
         </div>
         {making && (
@@ -104,7 +132,24 @@ export const ResultScreen: React.FC<Props> = ({
           </div>
         )}
       </div>
-      <p className="mt-2 text-center text-[12px] text-muted">미리보기는 소리 없이 나와요. 완성 영상에는 소리가 들어가요.</p>
+      <p className="mt-2 text-center text-[12px] text-muted">미리보기는 소리 없이 나와요. 완성 영상은 이름 장면 2초가 더해져 7~12초예요.</p>
+
+      {/* 만든 사람 이름 */}
+      <section className="mt-8">
+        <SectionTitle hint="첫 장면에 크게 들어가요">만든 사람 이름</SectionTitle>
+        <input
+          id="creator-name"
+          value={creatorName}
+          maxLength={10}
+          onChange={(e) => onChangeName(e.target.value.slice(0, 10))}
+          disabled={making}
+          placeholder="예: 민지"
+          className="w-full rounded-2xl border border-line bg-surface px-4 py-3.5 text-[16px] font-semibold placeholder:font-normal placeholder:text-muted/60 focus:border-ink focus:outline-none"
+        />
+        <p className="mt-2 text-[12px] text-muted">
+          첫 장면: “{creatorName.trim() ? `${creatorName.trim()}의 쇼츠` : '나의 AI 쇼츠'}” · 비워 두면 이름 없이 만들어요
+        </p>
+      </section>
 
       {/* 자막 편집 */}
       <section className="mt-8">

@@ -24,6 +24,7 @@ export const App: React.FC = () => {
   const [subjectId, setSubjectId] = useState<string | null>(saved?.subjectId ?? null);
   const [moodId, setMoodId] = useState<MoodId>(saved?.moodId ?? 'cheerful');
   const [keyword, setKeyword] = useState(saved?.keyword ?? '');
+  const [creatorName, setCreatorName] = useState(saved?.creatorName ?? '');
   const [result, setResult] = useState<ShortsResult | null>(saved?.result ?? null);
   const [remaining, setRemaining] = useState<number | null>(saved?.remaining ?? null);
   const [notice, setNotice] = useState<string | null>(null);
@@ -32,8 +33,8 @@ export const App: React.FC = () => {
 
   // 캔바에 다녀와도 그대로 이어지도록 저장
   useEffect(() => {
-    saveState({ step, templateId, protagonistId, subjectId, moodId, keyword, result, remaining });
-  }, [step, templateId, protagonistId, subjectId, moodId, keyword, result, remaining]);
+    saveState({ step, templateId, protagonistId, subjectId, moodId, keyword, creatorName, result, remaining });
+  }, [step, templateId, protagonistId, subjectId, moodId, keyword, creatorName, result, remaining]);
 
   const go = (next: AppStep) => {
     setStep(next);
@@ -47,6 +48,7 @@ export const App: React.FC = () => {
     setSubjectId(null);
     setMoodId('cheerful');
     setKeyword('');
+    setCreatorName('');
     setResult(null);
     setRemaining(null);
     setNotice(null);
@@ -110,6 +112,8 @@ export const App: React.FC = () => {
               go('finish');
             }}
             onBack={() => go('make')}
+            creatorName={creatorName}
+            onChangeName={setCreatorName}
           />
         )}
 
