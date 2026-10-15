@@ -1,11 +1,11 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Check, Download, ExternalLink, Share2 } from 'lucide-react';
 import { BOOTH } from '../config/booth';
-import { COMMON_HASHTAGS } from '../data/templates';
+import { COMMON_HASHTAGS, TEMPLATES } from '../data/templates';
 import { getDownloads } from '../config/runtime';
 import type { ComposeResult } from '../services/compose';
 import type { ShortsResult, ShortsTemplate } from '../types';
-import { BottomBar, CopyButton, SectionTitle } from './ui';
+import { BottomBar, CopyButton, SectionTitle, TemplateThumb } from './ui';
 
 interface Props {
   template: ShortsTemplate;
@@ -121,24 +121,30 @@ export const FinishScreen: React.FC<Props> = ({ template, result, composed, onBa
         </p>
       </section>
 
-      <a
-        href={result.canvaUrl || template.canvaUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-8 flex items-center justify-between rounded-2xl bg-surface px-4 py-4 text-[15px] font-semibold"
-      >
-        <span>
-          캔바에서 더 꾸미기 <span className="font-normal text-muted">(선택)</span>
-        </span>
-        <ExternalLink className="h-4 w-4 text-muted" />
-      </a>
+      <section className="mt-10">
+        <SectionTitle>캔바로 나만의 쇼츠 만들기</SectionTitle>
+        <p className="-mt-1 mb-3 text-[14px] leading-relaxed text-muted">
+          템플릿을 골라 내 사진과 영상으로 채워 보세요. 썸네일을 누르면 캔바가 열려요.
+        </p>
+        <div className="grid grid-cols-4 gap-2">
+          {[template, ...TEMPLATES.filter((t) => t.id !== template.id)].map((t) => (
+            <a key={t.id} href={t.canvaUrl} target="_blank" rel="noopener noreferrer" aria-label={`${t.title} 캔바 템플릿 열기`}>
+              <TemplateThumb template={t} showTitle={false} />
+              <span className="mt-1 block text-center text-[11px] font-semibold leading-tight">{t.title}</span>
+            </a>
+          ))}
+        </div>
+        <p className="mt-3 text-[12px] leading-relaxed text-muted">
+          무료 계정은 [공유] → [다운로드]에서 화질을 바꾸지 말고 1080p 그대로 저장하세요.
+        </p>
+      </section>
 
       {BOOTH.surveyUrl && (
         <a
           href={BOOTH.surveyUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-3 flex items-center justify-between rounded-2xl bg-surface px-4 py-4 text-[15px] font-semibold"
+          className="mt-8 flex items-center justify-between rounded-2xl bg-surface px-4 py-4 text-[15px] font-semibold"
         >
           체험 소감 남기기 (1분)
           <ExternalLink className="h-4 w-4 text-muted" />
