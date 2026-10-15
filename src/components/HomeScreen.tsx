@@ -14,7 +14,7 @@ export const HomeScreen: React.FC<{ onStart: () => void }> = ({ onStart }) => (
       AI랑 찍어요
     </h1>
     <p className="mt-3 text-[15px] leading-relaxed text-muted">
-      퀴즈 3문제를 풀고 템플릿을 고르면 자막과 영상 프롬프트가 나와요. 영상은 구글 Flow로 만들고, 캔바에서 완성해요.
+      퀴즈 3문제를 풀고 템플릿을 고르면 AI가 내 자막을 써 줘요. 구글 Flow로 만든 AI 영상에 자막을 얹어 캔바에서 완성해요.
     </p>
 
     <div className="mt-7 grid grid-cols-4 gap-2" aria-hidden="true">
@@ -26,7 +26,7 @@ export const HomeScreen: React.FC<{ onStart: () => void }> = ({ onStart }) => (
     </div>
 
     <ol className="mt-12 space-y-3 text-[14px]">
-      {['미디어 리터러시 퀴즈 3문제', '템플릿과 주인공 고르기', 'Flow 영상 받아 캔바에서 완성'].map((s, i) => (
+      {['미디어 리터러시 퀴즈 3문제', '템플릿과 주인공 고르기', '캔바에서 자막 넣고 완성'].map((s, i) => (
         <li key={s} className="flex items-center gap-3">
           <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-ink text-[12px] font-bold text-white">
             {i + 1}
@@ -38,7 +38,7 @@ export const HomeScreen: React.FC<{ onStart: () => void }> = ({ onStart }) => (
 
     <BottomBar>
       <PrimaryButton onClick={onStart}>시작하기</PrimaryButton>
-      <p className="mt-2 text-center text-[12px] text-muted">약 5분 · 앱 설치 없이 스마트폰으로</p>
+      <p className="mt-2 text-center text-[12px] text-muted">약 3~5분 · 앱 설치 없이 스마트폰으로</p>
     </BottomBar>
   </div>
 );

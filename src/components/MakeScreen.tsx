@@ -120,7 +120,7 @@ export const MakeScreen: React.FC<Props> = ({
           </section>
 
           <section>
-            <SectionTitle hint="선택">더 넣고 싶은 내용</SectionTitle>
+            <SectionTitle hint="선택">자막에 넣고 싶은 말</SectionTitle>
             <input
               type="text"
               value={keyword}
@@ -139,14 +139,14 @@ export const MakeScreen: React.FC<Props> = ({
           {loading ? (
             <>
               <Loader2 className="h-5 w-5 animate-spin" />
-              자막과 프롬프트 만드는 중
+              자막 만드는 중
             </>
           ) : !template ? (
             '템플릿을 골라 주세요'
           ) : !subjectId ? (
             template.subjectRole === 'theme' ? '방송 주제를 골라 주세요' : '주인공을 골라 주세요'
           ) : (
-            '자막과 프롬프트 만들기'
+            '내 자막 만들기'
           )}
         </PrimaryButton>
         <p className="mt-2 text-center text-[12px] text-muted">

@@ -6,12 +6,6 @@ export const BOOTH = {
   boothName: '대구1인미디어센터',
 
   /**
-   * 카카오톡 오픈채팅방 주소 (예: https://open.kakao.com/o/gAbCdEfG)
-   * 비워 두면 '운영자에게 보내기' 대신 "스태프에게 화면을 보여주세요" 안내가 나옵니다.
-   */
-  kakaoOpenChatUrl: '',
-
-  /**
    * QR 코드에 넣을 공개 주소 (AI Studio에서 배포한 주소).
    * 비워 두면 지금 열린 주소를 씁니다. 개발용 미리보기(ais-dev-…) 주소는 외부인이 못 열 수 있어요.
    */

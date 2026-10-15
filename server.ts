@@ -8,7 +8,6 @@ import {
   MOODS,
   getTemplate,
   isMoodId,
-  buildFlowPrompt,
   buildFallbackResult,
 } from './src/data/templates.ts';
 import type { ShortsResult } from './src/types/index.ts';
@@ -111,7 +110,7 @@ function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
 }
 
 /* ------------------------------------------------------------------
- * 3. POST /api/generate — 자막 3줄 + Flow 프롬프트
+ * 3. POST /api/generate — 자막 3줄 (+ 미리 만든 영상의 Flow 프롬프트)
  * ------------------------------------------------------------------ */
 app.post('/api/generate', async (req, res) => {
   const { sessionId, templateId, subjectId, moodId, keyword } = req.body || {};
@@ -179,23 +178,19 @@ app.post('/api/generate', async (req, res) => {
 
   const prompt = `
 당신은 '2026 대구 콘텐츠페어' 대구1인미디어센터 부스의 쇼츠 작가입니다.
-관람객이 캔바 템플릿과 구글 Flow 영상으로 완성할 쇼츠의 자막과 영상 장면을 써 주세요.
+관람객이 캔바 템플릿으로 완성할 12초 쇼츠의 자막을 써 주세요. (영상은 부스에서 미리 만들어 둔 구글 Flow 영상을 씁니다)
 
 [템플릿] ${template.title} — ${template.briefKo}
 [주인공] ${who}
+[영상 장면] ${template.fallback.sceneKo}
 [분위기] ${mood.label} (${mood.tonePrompt})
 [관람객 키워드] ${userKeyword || '없음'}
 
 [작성 규칙]
 1. captions: 자막 3줄. 1줄=도입(시선 끌기), 2줄=핵심, 3줄=마무리. 각 줄 공백 포함 15~25자, 자연스러운 한국어 구어체.
-2. sceneEn: 구글 Flow(Veo)에 넣을 '하나의 장면' 묘사. 영어 35~60단어.
-   - 동작, 배경 속 움직임, 카메라 움직임만 쓰세요.
-   - 주인공은 "the character"(사람이면 he/she/they)로만 부르고 생김새·국적·나이는 새로 지어내지 마세요. (앱이 따로 붙입니다)
-   - 단, 관람객 키워드에 나온 소품·옷·장소는 장면에 넣어 주세요. (예: "빨간 망토" → wearing a red cape)
-   - 화면에 글자·자막·로고가 나오게 하지 마세요.
-3. sceneKo: sceneEn을 관람객이 이해할 수 있게 한국어 한 문장(50자 이내)으로.
-4. hashtags: 영상에 어울리는 한국어 해시태그 2개 (# 포함).
-5. 날짜, 시간, 무료 혜택, 경품, 할인, 초청 게스트 같은 확인되지 않은 행사 정보는 절대 지어내지 마세요.
+   관람객 키워드가 있으면 자막에 자연스럽게 녹여 주세요. 같은 조건이라도 매번 새로운 표현으로 써 주세요.
+2. hashtags: 영상에 어울리는 한국어 해시태그 2개 (# 포함).
+3. 날짜, 시간, 무료 혜택, 경품, 할인, 초청 게스트 같은 확인되지 않은 행사 정보는 절대 지어내지 마세요.
 `.trim();
 
   try {
@@ -205,16 +200,15 @@ app.post('/api/generate', async (req, res) => {
         model: MODEL,
         contents: prompt,
         config: {
+          temperature: 1.1,
           responseMimeType: 'application/json',
           responseSchema: {
             type: Type.OBJECT,
             properties: {
               captions: { type: Type.ARRAY, items: { type: Type.STRING }, description: '자막 3줄' },
-              sceneEn: { type: Type.STRING, description: 'Flow 장면 묘사 (영어 35~60단어)' },
-              sceneKo: { type: Type.STRING, description: '장면 한 줄 한국어 설명' },
               hashtags: { type: Type.ARRAY, items: { type: Type.STRING }, description: '해시태그 2개' },
             },
-            required: ['captions', 'sceneEn', 'sceneKo', 'hashtags'],
+            required: ['captions', 'hashtags'],
           },
         },
       }),
@@ -233,14 +227,6 @@ app.post('/api/generate', async (req, res) => {
       cleanCaption(caps[2], fc[2]),
     ];
 
-    const sceneEnRaw = typeof parsed.sceneEn === 'string' ? parsed.sceneEn.trim().replace(/\s+/g, ' ') : '';
-    const sceneOk = sceneEnRaw.split(' ').length >= 15 && sceneEnRaw.length <= 600;
-    const sceneEn = sceneOk ? sceneEnRaw : template.fallback.sceneEn;
-
-    const sceneKoRaw = typeof parsed.sceneKo === 'string' ? parsed.sceneKo.trim() : '';
-    const sceneKo =
-      sceneOk && sceneKoRaw && !hasForbidden(sceneKoRaw) ? Array.from(sceneKoRaw).slice(0, 70).join('') : template.fallback.sceneKo;
-
     const aiTags: string[] = Array.isArray(parsed.hashtags)
       ? parsed.hashtags
           .filter((t: unknown): t is string => typeof t === 'string' && t.trim().length > 1)
@@ -248,10 +234,12 @@ app.post('/api/generate', async (req, res) => {
           .slice(0, 2)
       : [];
 
+    // 영상과 프롬프트는 미리 만든 것을 그대로 보여 줍니다 (부스에서 실제로 쓴 프롬프트)
     const result: ShortsResult = {
       captions,
-      sceneKo,
-      flowPrompt: buildFlowPrompt(template, subject.id, sceneEn),
+      sceneKo: fallback.sceneKo,
+      flowPrompt: fallback.flowPrompt,
+      canvaUrl: fallback.canvaUrl,
       hashtags: aiTags.length ? aiTags : template.hashtags,
       mode: 'ai',
     };

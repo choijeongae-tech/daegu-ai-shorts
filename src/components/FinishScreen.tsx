@@ -13,21 +13,25 @@ interface Props {
 }
 
 const STEPS = [
-  { title: '썸네일을 눌러 캔바 템플릿 열기', body: '캔바 앱이나 브라우저에서 템플릿이 열려요.' },
+  { title: '썸네일을 눌러 캔바 템플릿 열기', body: 'AI 영상이 이미 들어 있는 템플릿이 열려요.' },
   { title: '장면마다 자막 붙여 넣기', body: '자막 칸을 누르고, 아래 자막을 하나씩 복사해 넣어요.' },
-  { title: 'Flow 영상 넣기', body: '부스에서 받은 영상을 저장한 뒤, 캔바 [업로드]에서 올려 영상 칸에 끌어다 놓아요.' },
+  {
+    title: '나만의 컷 더하기 (선택)',
+    body: '부스에서 직접 찍은 3초 영상이나 사진을 한 장면에 넣어 보세요. 세상에 하나뿐인 쇼츠가 돼요.',
+  },
   { title: '다운로드하고 공유하기', body: '[공유] → [다운로드]에서 MP4로 저장해요. 올릴 때 AI로 만든 영상이라고 밝혀 주세요.' },
 ];
 
 export const FinishScreen: React.FC<Props> = ({ template, result, onBack, onRestart }) => {
   const hashtags = [...result.hashtags, ...COMMON_HASHTAGS].join(' ');
+  const canvaUrl = result.canvaUrl || template.canvaUrl;
 
   return (
     <div className="rise">
       <h2 className="font-display text-[32px] leading-tight">캔바에서 완성해요</h2>
 
       <a
-        href={template.canvaUrl}
+        href={canvaUrl}
         target="_blank"
         rel="noopener noreferrer"
         className="group mx-auto mt-6 block w-[62%] max-w-[240px]"
@@ -40,6 +44,8 @@ export const FinishScreen: React.FC<Props> = ({ template, result, onBack, onRest
           캔바에서 열기 <ExternalLink className="h-4 w-4" />
         </span>
       </a>
+
+      <p className="mt-4 text-center text-[13px] text-muted">캔바 계정이 없다면 부스 태블릿에서 만들 수 있어요.</p>
 
       <ol className="mt-8 space-y-4">
         {STEPS.map((s, i) => (

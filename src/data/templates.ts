@@ -2,7 +2,10 @@
  * 쇼츠 템플릿 4종 — 앱(화면)과 서버(server.ts)가 함께 쓰는 설정 파일입니다.
  *
  * [운영자 안내]
- * - 캔바 링크를 바꾸려면 canvaUrl만 고치면 됩니다.
+ * - 영상은 행사 전에 미리 만들어 둡니다: 템플릿 4개 × 주인공 4개 = 16개.
+ *   각 영상의 Flow 프롬프트는 docs/flow-prompts.md 에 정리돼 있습니다. (npm run prompts 로 다시 만들 수 있음)
+ * - 영상을 넣은 캔바 템플릿 사본의 링크를 각 주인공의 canvaUrl에 넣어 주세요.
+ *   비워 두면 그 템플릿의 기본 링크(canvaUrl)가 열립니다.
  * - 썸네일 이미지는 public/thumbnails/ 폴더에 thumbnail 이름 그대로(9:16 세로 이미지) 넣어 주세요.
  *   파일이 없으면 색 배경 썸네일이 자동으로 보입니다.
  * - '크리에이터 준호'의 생김새(protagonistEn)는 캔바 템플릿 속 준호와 비슷하게 고쳐 주세요.
@@ -22,10 +25,10 @@ export const TEMPLATES: ShortsTemplate[] = [
     subjectQuestion: '주인공 반려동물은?',
     subjectRole: 'character',
     subjects: [
-      { id: 'dog', label: '강아지', en: 'a fluffy small dog with bright eyes' },
-      { id: 'cat', label: '고양이', en: 'a curious cat with soft fur' },
-      { id: 'hamster', label: '햄스터', en: 'a tiny round hamster' },
-      { id: 'rabbit', label: '토끼', en: 'a fluffy rabbit with long ears' },
+      { id: 'dog', label: '강아지', en: 'a fluffy small dog with bright eyes', canvaUrl: '' },
+      { id: 'cat', label: '고양이', en: 'a curious cat with soft fur', canvaUrl: '' },
+      { id: 'hamster', label: '햄스터', en: 'a tiny round hamster', canvaUrl: '' },
+      { id: 'rabbit', label: '토끼', en: 'a fluffy rabbit with long ears', canvaUrl: '' },
     ],
     keywordPlaceholder: '예: 간식 리뷰, 산책 브이로그',
     styleEn: 'Bright and cozy home vlog look, soft natural window light, shallow depth of field, cute and playful mood',
@@ -50,10 +53,10 @@ export const TEMPLATES: ShortsTemplate[] = [
     protagonistEn:
       'Main character: Junho, a friendly Korean man in his early 20s with short black hair, wearing a casual hoodie',
     subjects: [
-      { id: 'game', label: '게임 방송', en: 'a live game stream, wearing a gaming headset with a controller in hand' },
-      { id: 'mukbang', label: '먹방', en: 'a mukbang, tasting spicy tteokbokki and Korean street food at the desk' },
-      { id: 'travel', label: '대구 여행', en: 'a Daegu travel vlog, showing a small camera and a city map' },
-      { id: 'music', label: '노래 커버', en: 'a song cover, singing into a studio microphone' },
+      { id: 'game', label: '게임 방송', en: 'a live game stream, wearing a gaming headset with a controller in hand', canvaUrl: '' },
+      { id: 'mukbang', label: '먹방', en: 'a mukbang, tasting spicy tteokbokki and Korean street food at the desk', canvaUrl: '' },
+      { id: 'travel', label: '대구 여행', en: 'a Daegu travel vlog, showing a small camera and a city map', canvaUrl: '' },
+      { id: 'music', label: '노래 커버', en: 'a song cover, singing into a studio microphone', canvaUrl: '' },
     ],
     keywordPlaceholder: '예: 채널 이름, 첫 인사말',
     styleEn:
@@ -77,10 +80,10 @@ export const TEMPLATES: ShortsTemplate[] = [
     subjectQuestion: '내 캐릭터는?',
     subjectRole: 'character',
     subjects: [
-      { id: 'cat-knight', label: '고양이 기사', en: 'a brave cat knight with a tiny sword' },
-      { id: 'robot', label: '로봇 히어로', en: 'a small round robot hero with glowing eyes' },
-      { id: 'astronaut', label: '우주 탐험가', en: 'a little astronaut explorer in a white suit' },
-      { id: 'wizard', label: '꼬마 마법사', en: 'a young wizard with a glowing star staff' },
+      { id: 'cat-knight', label: '고양이 기사', en: 'a brave cat knight with a tiny sword', canvaUrl: '' },
+      { id: 'robot', label: '로봇 히어로', en: 'a small round robot hero with glowing eyes', canvaUrl: '' },
+      { id: 'astronaut', label: '우주 탐험가', en: 'a little astronaut explorer in a white suit', canvaUrl: '' },
+      { id: 'wizard', label: '꼬마 마법사', en: 'a young wizard with a glowing star staff', canvaUrl: '' },
     ],
     keywordPlaceholder: '예: 빨간 망토, 별 모양 방패',
     styleEn: '16-bit retro pixel art video game, side-scrolling arcade stage, chunky pixels, vivid CRT colors',
@@ -103,10 +106,10 @@ export const TEMPLATES: ShortsTemplate[] = [
     subjectQuestion: '영상 속 주인공은?',
     subjectRole: 'character',
     subjects: [
-      { id: 'twenties', label: '20대 청년', en: 'a Korean woman in her 20s holding a small camera' },
-      { id: 'student', label: '10대 학생', en: 'a cheerful Korean teenage student in a hoodie' },
-      { id: 'friends', label: '친구 둘', en: 'two Korean friends in their 20s' },
-      { id: 'family', label: '가족', en: 'a Korean family of three' },
+      { id: 'twenties', label: '20대 청년', en: 'a Korean woman in her 20s holding a small camera', canvaUrl: '' },
+      { id: 'student', label: '10대 학생', en: 'a cheerful Korean teenage student in a hoodie', canvaUrl: '' },
+      { id: 'friends', label: '친구 둘', en: 'two Korean friends in their 20s', canvaUrl: '' },
+      { id: 'family', label: '가족', en: 'a Korean family of three', canvaUrl: '' },
     ],
     keywordPlaceholder: '예: 가장 재밌었던 부스, VR 체험',
     styleEn:
@@ -157,13 +160,15 @@ export function buildFlowPrompt(template: ShortsTemplate, subjectId: string, sce
   return `Vertical 9:16 video. ${template.styleEn}. ${who} ${sceneEn.trim()} No on-screen text, no subtitles, no logos.`;
 }
 
-/** AI를 쓸 수 없을 때 쓰는 준비된 결과 (서버·앱 공용) */
+/** 준비된 결과 — AI를 쓸 수 없을 때의 자막 + 미리 만든 영상의 프롬프트·캔바 링크 (서버·앱 공용) */
 export function buildFallbackResult(template: ShortsTemplate, subjectId: string, keyword = ''): ShortsResult {
   const kwTag = keyword.trim() ? `#${keyword.trim().replace(/[\s,#]+/g, '').slice(0, 15)}` : '';
+  const subject = template.subjects.find((s) => s.id === subjectId) || template.subjects[0];
   return {
     captions: [...template.fallback.captions] as [string, string, string],
     sceneKo: template.fallback.sceneKo,
-    flowPrompt: buildFlowPrompt(template, subjectId, template.fallback.sceneEn),
+    flowPrompt: buildFlowPrompt(template, subject.id, template.fallback.sceneEn),
+    canvaUrl: subject.canvaUrl || template.canvaUrl,
     hashtags: [...template.hashtags, ...(kwTag ? [kwTag] : [])],
     mode: 'fallback',
   };

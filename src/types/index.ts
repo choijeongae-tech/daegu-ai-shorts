@@ -26,6 +26,11 @@ export interface SubjectOption {
   label: string;
   /** Flow 영문 프롬프트에 들어가는 묘사 */
   en: string;
+  /**
+   * 이 주인공 영상이 미리 들어 있는 캔바 템플릿 링크.
+   * 비워 두면 템플릿 기본 링크(ShortsTemplate.canvaUrl)가 열립니다.
+   */
+  canvaUrl: string;
 }
 
 export interface ShortsTemplate {
@@ -64,8 +69,10 @@ export interface ShortsResult {
   captions: [string, string, string];
   /** 영상 장면 한 줄 설명 (관람객용 한글) */
   sceneKo: string;
-  /** Flow에 붙여넣을 최종 영문 프롬프트 */
+  /** 미리 만든 영상에 실제로 쓴 Flow 영문 프롬프트 */
   flowPrompt: string;
+  /** 열어야 할 캔바 링크 (주인공별) */
+  canvaUrl: string;
   hashtags: string[];
   mode: 'ai' | 'fallback';
 }

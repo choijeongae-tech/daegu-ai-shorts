@@ -5,7 +5,7 @@ import type { AppStep } from '../types';
 const STEPS: { key: AppStep; label: string }[] = [
   { key: 'quiz', label: '퀴즈' },
   { key: 'make', label: '고르기' },
-  { key: 'result', label: '프롬프트' },
+  { key: 'result', label: '자막' },
   { key: 'finish', label: '캔바 완성' },
 ];
 
