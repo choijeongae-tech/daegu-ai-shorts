@@ -1,4 +1,4 @@
-# 미리 만들 구글 Flow 영상 프롬프트 (20개)
+# 구글 Flow 영상 프롬프트 (22개)
 
 각 프롬프트를 Flow에 그대로 붙여 넣어 영상을 만든 뒤, 해당 캔바 템플릿 사본에 넣어 주세요.
 영상에 영어 말소리가 섞여 나오면 다시 생성하세요. (대사가 있는 템플릿은 한국어 대사만, 나머지는 대사 없이 만들도록 지정돼 있어요)
@@ -10,6 +10,7 @@
 | ☐ | 반려동물 크리에이터 | 고양이 | pet-creator_cat.mp4 | `pet-creator` → `cat` → canvaUrl |
 | ☐ | 반려동물 크리에이터 | 햄스터 | pet-creator_hamster.mp4 | `pet-creator` → `hamster` → canvaUrl |
 | ☐ | 반려동물 크리에이터 | 토끼 | pet-creator_rabbit.mp4 | `pet-creator` → `rabbit` → canvaUrl |
+| ☐ | 반려동물 크리에이터 | 거북이 | pet-creator_turtle.mp4 | `pet-creator` → `turtle` → canvaUrl |
 | ☐ | 크리에이터 첫 방송 | 남성 · 준호 / 게임 방송 | creator-junho_male_game.mp4 | `creator-junho` → `game` → canvaUrl (주인공 공통) |
 | ☐ | 크리에이터 첫 방송 | 남성 · 준호 / 먹방 | creator-junho_male_mukbang.mp4 | `creator-junho` → `mukbang` → canvaUrl (주인공 공통) |
 | ☐ | 크리에이터 첫 방송 | 남성 · 준호 / 여행 브이로그 | creator-junho_male_travel.mp4 | `creator-junho` → `travel` → canvaUrl (주인공 공통) |
@@ -18,10 +19,11 @@
 | ☐ | 크리에이터 첫 방송 | 여성 · 하은 / 먹방 | creator-junho_female_mukbang.mp4 | `creator-junho` → `mukbang` → canvaUrl (주인공 공통) |
 | ☐ | 크리에이터 첫 방송 | 여성 · 하은 / 여행 브이로그 | creator-junho_female_travel.mp4 | `creator-junho` → `travel` → canvaUrl (주인공 공통) |
 | ☐ | 크리에이터 첫 방송 | 여성 · 하은 / 음악 방송 | creator-junho_female_music.mp4 | `creator-junho` → `music` → canvaUrl (주인공 공통) |
-| ☐ | 레트로 아케이드 게임 | 고양이 기사 | retro-arcade_cat-knight.mp4 | `retro-arcade` → `cat-knight` → canvaUrl |
 | ☐ | 레트로 아케이드 게임 | 로봇 히어로 | retro-arcade_robot.mp4 | `retro-arcade` → `robot` → canvaUrl |
 | ☐ | 레트로 아케이드 게임 | 우주 탐험가 | retro-arcade_astronaut.mp4 | `retro-arcade` → `astronaut` → canvaUrl |
 | ☐ | 레트로 아케이드 게임 | 꼬마 마법사 | retro-arcade_wizard.mp4 | `retro-arcade` → `wizard` → canvaUrl |
+| ☐ | 레트로 아케이드 게임 | 강아지 기사 | retro-arcade_dog-knight.mp4 | `retro-arcade` → `dog-knight` → canvaUrl |
+| ☐ | 레트로 아케이드 게임 | 쿼카 기사 | retro-arcade_quokka-knight.mp4 | `retro-arcade` → `quokka-knight` → canvaUrl |
 | ☐ | 콘텐츠페어 방문 후기 | 20대 청년 | fair-review_twenties.mp4 | `fair-review` → `twenties` → canvaUrl |
 | ☐ | 콘텐츠페어 방문 후기 | 10대 학생 | fair-review_student.mp4 | `fair-review` → `student` → canvaUrl |
 | ☐ | 콘텐츠페어 방문 후기 | 친구 둘 | fair-review_friends.mp4 | `fair-review` → `friends` → canvaUrl |
@@ -55,6 +57,12 @@ Vertical 9:16 video. Bright and cozy home vlog look, soft natural window light, 
 
 ```
 Vertical 9:16 video. Bright and cozy home vlog look, soft natural window light, shallow depth of field, cute and playful mood. Main character: a fluffy rabbit with long ears. The pet sits in front of a tiny ring light and a smartphone on a mini tripod, tilts its head at the camera, then playfully taps the screen with a paw as if pressing record. Slow push-in, handheld vlog feel. Audio: no dialogue, no narration, no singing, no voice of any kind. Only cute pet sounds and soft, cheerful background music. No on-screen text, no subtitles, no logos.
+```
+
+### 거북이  (`pet-creator_turtle.mp4`)
+
+```
+Vertical 9:16 video. Bright and cozy home vlog look, soft natural window light, shallow depth of field, cute and playful mood. Main character: a turtle with long neck. The pet sits in front of a tiny ring light and a smartphone on a mini tripod, tilts its head at the camera, then playfully taps the screen with a paw as if pressing record. Slow push-in, handheld vlog feel. Audio: no dialogue, no narration, no singing, no voice of any kind. Only cute pet sounds and soft, cheerful background music. No on-screen text, no subtitles, no logos.
 ```
 
 ## 크리에이터 첫 방송
@@ -141,12 +149,6 @@ Vertical 9:16 video. Modern broadcast studio in a community media center, a red 
 
 소리: 대사 없이 음악·효과음만
 
-### 고양이 기사  (`retro-arcade_cat-knight.mp4`)
-
-```
-Vertical 9:16 video. 16-bit retro pixel art video game, side-scrolling arcade stage, chunky pixels, vivid CRT colors. Main character: a brave cat knight with a tiny sword. The character jumps across floating platforms, collects spinning gold coins and a glowing star, then strikes a victory pose as pixel fireworks burst in the sky. Side-scrolling camera. Audio: no dialogue, no narration, no singing, no voice of any kind. Only 8-bit chiptune game music, coin and jump sound effects. No on-screen text, no subtitles, no logos.
-```
-
 ### 로봇 히어로  (`retro-arcade_robot.mp4`)
 
 ```
@@ -163,6 +165,18 @@ Vertical 9:16 video. 16-bit retro pixel art video game, side-scrolling arcade st
 
 ```
 Vertical 9:16 video. 16-bit retro pixel art video game, side-scrolling arcade stage, chunky pixels, vivid CRT colors. Main character: a young wizard with a glowing star staff. The character jumps across floating platforms, collects spinning gold coins and a glowing star, then strikes a victory pose as pixel fireworks burst in the sky. Side-scrolling camera. Audio: no dialogue, no narration, no singing, no voice of any kind. Only 8-bit chiptune game music, coin and jump sound effects. No on-screen text, no subtitles, no logos.
+```
+
+### 강아지 기사  (`retro-arcade_dog-knight.mp4`)
+
+```
+PIXEL QUEST 12초짜리 미션 수행형 레트로 픽셀 게임 영상.영상 기본 설정: 세로형 1080×1920px 총 12초 3장면, 각 4초16비트 레트로 게임 스타일네온 퍼플, 코발트블루, 픽셀 그린 게임 시작 및 아이템 획득 효과음 포함SCENE 01: GAME START (0~4초)픽셀 게임 도시 배경PLAYER 1 LOGIN게임 로딩바콘텐츠 큐브 3개 수집 미션. 캐릭터 등장hookSCENE 02: QUEST ACTION (4~8초). 첨부된 캐릭터가 픽셀 큐브 3개를 순차적으로 획득하는 애니메이션. 진행바 0/3 → 1/3 → 2/3 → 3/3+100 점수 팝업, 획득 반짝임, 점프 효과SCENE 03: MISSION CLEAR (8~12초)MISSION CLEAR 타이틀LEVEL UP 그래픽픽셀 폭죽과 트로피callToAction. 텍스트 편집 영역. 2026 대구 콘텐츠페어 표기(한글 오타 주의)
+```
+
+### 쿼카 기사  (`retro-arcade_quokka-knight.mp4`)
+
+```
+PIXEL QUEST 12초짜리 미션 수행형 레트로 픽셀 게임 영상.영상 기본 설정: 세로형 1080×1920px 총 12초 3장면, 각 4초16비트 레트로 게임 스타일네온 퍼플, 코발트블루, 픽셀 그린 게임 시작 및 아이템 획득 효과음 포함SCENE 01: GAME START (0~4초)픽셀 게임 도시 배경PLAYER 1 LOGIN게임 로딩바콘텐츠 큐브 3개 수집 미션. 캐릭터 등장hookSCENE 02: QUEST ACTION (4~8초). 첨부된 캐릭터가 픽셀 큐브 3개를 순차적으로 획득하는 애니메이션. 진행바 0/3 → 1/3 → 2/3 → 3/3+100 점수 팝업, 획득 반짝임, 점프 효과SCENE 03: MISSION CLEAR (8~12초)MISSION CLEAR 타이틀LEVEL UP 그래픽픽셀 폭죽과 트로피callToAction. 텍스트 편집 영역. 2026 대구 콘텐츠페어 표기(한글 오타 주의)
 ```
 
 ## 콘텐츠페어 방문 후기

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExternalLink } from 'lucide-react';
+import { Download, ExternalLink } from 'lucide-react';
 import { BOOTH } from '../config/booth';
 import { COMMON_HASHTAGS } from '../data/templates';
 import type { ShortsResult, ShortsTemplate } from '../types';
@@ -13,13 +13,14 @@ interface Props {
 }
 
 const STEPS = [
-  { title: '썸네일을 눌러 캔바 템플릿 열기', body: 'AI 영상이 이미 들어 있는 템플릿이 열려요.' },
+  { title: '내 AI 영상 저장하기', body: '아래 [영상 저장하기]를 눌러 휴대폰에 저장해요.' },
+  { title: '썸네일을 눌러 캔바 템플릿 열기', body: '캔바 앱이나 브라우저에서 템플릿이 열려요.' },
+  { title: '영상 넣기', body: '캔바 [업로드]에서 저장한 영상을 올리고, 템플릿의 영상 칸에 끌어다 놓아요.' },
   { title: '장면마다 자막 붙여 넣기', body: '자막 칸을 누르고, 아래 자막을 하나씩 복사해 넣어요.' },
   {
-    title: '나만의 컷 더하기 (선택)',
-    body: '부스에서 직접 찍은 3초 영상이나 사진을 한 장면에 넣어 보세요. 세상에 하나뿐인 쇼츠가 돼요.',
+    title: '다운로드하고 공유하기',
+    body: '부스에서 찍은 3초 영상이나 사진을 더하면 세상에 하나뿐인 쇼츠가 돼요(선택). [공유] → [다운로드]에서 MP4로 저장하고, 올릴 때 AI로 만든 영상이라고 밝혀 주세요.',
   },
-  { title: '다운로드하고 공유하기', body: '[공유] → [다운로드]에서 MP4로 저장해요. 올릴 때 AI로 만든 영상이라고 밝혀 주세요.' },
 ];
 
 export const FinishScreen: React.FC<Props> = ({ template, result, onBack, onRestart }) => {
@@ -45,7 +46,15 @@ export const FinishScreen: React.FC<Props> = ({ template, result, onBack, onRest
         </span>
       </a>
 
-      <p className="mt-4 text-center text-[13px] text-muted">캔바 계정이 없다면 부스 태블릿에서 만들 수 있어요.</p>
+      <a
+        href={result.videoUrl}
+        download
+        className="mx-auto mt-5 flex w-full max-w-[320px] items-center justify-center gap-2 rounded-full border border-line bg-surface py-3 text-[15px] font-bold active:bg-paper"
+      >
+        <Download className="h-4 w-4" />
+        영상 저장하기
+      </a>
+      <p className="mt-3 text-center text-[13px] text-muted">캔바 계정이 없다면 부스 태블릿에서 만들 수 있어요.</p>
 
       <ol className="mt-8 space-y-4">
         {STEPS.map((s, i) => (

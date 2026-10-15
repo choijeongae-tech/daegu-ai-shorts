@@ -35,6 +35,10 @@ export interface SubjectOption {
   canvaUrlByProtagonist?: Record<string, string>;
   /** 이 주제 영상의 한국어 대사. {name}은 주인공 이름으로 바뀝니다. */
   lineKo?: string;
+  /** 직접 쓴 프롬프트로 만든 영상이면, 그 프롬프트를 그대로 보여 줍니다 */
+  flowPromptOverride?: string;
+  /** flowPromptOverride를 쓸 때의 한글 장면 설명 */
+  sceneKoOverride?: string;
   /** 이 주제의 기본 자막 3줄 (AI를 못 쓸 때). {name}은 주인공 이름으로 바뀝니다. */
   captions?: [string, string, string];
 }
@@ -101,8 +105,11 @@ export interface ShortsResult {
   sceneKo: string;
   /** 미리 만든 영상에 실제로 쓴 Flow 영문 프롬프트 */
   flowPrompt: string;
-  /** 열어야 할 캔바 링크 (주인공별) */
+  /** 열어야 할 캔바 링크 */
   canvaUrl: string;
+  /** 미리 만든 Flow 영상 (public/videos) */
+  videoUrl: string;
+  posterUrl: string;
   hashtags: string[];
   mode: 'ai' | 'fallback';
 }

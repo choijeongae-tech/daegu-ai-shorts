@@ -1,5 +1,5 @@
 /**
- * 행사 전에 미리 만들 Flow 영상 16개의 프롬프트를 docs/flow-prompts.md 로 정리합니다.
+ * 미리 만든 Flow 영상들의 프롬프트를 docs/flow-prompts.md 로 정리합니다.
  * 실행: npm run prompts
  */
 import fs from 'fs';
@@ -7,7 +7,7 @@ import path from 'path';
 import { TEMPLATES, buildFlowPrompt, getLineKo, fillName } from '../src/data/templates.ts';
 
 const lines: string[] = [
-  `# 미리 만들 구글 Flow 영상 프롬프트 (${TEMPLATES.reduce((n, t) => n + t.subjects.length * (t.protagonists?.length || 1), 0)}개)`,
+  `# 구글 Flow 영상 프롬프트 (${TEMPLATES.reduce((n, t) => n + t.subjects.length * (t.protagonists?.length || 1), 0)}개)`,
   '',
   '각 프롬프트를 Flow에 그대로 붙여 넣어 영상을 만든 뒤, 해당 캔바 템플릿 사본에 넣어 주세요.',
   '영상에 영어 말소리가 섞여 나오면 다시 생성하세요. (대사가 있는 템플릿은 한국어 대사만, 나머지는 대사 없이 만들도록 지정돼 있어요)',
@@ -46,7 +46,7 @@ for (const t of TEMPLATES) {
     lines.push('', `### ${title}  (\`${file}\`)`);
     if (line) lines.push('', `- 대사: ${line}`);
     if (caps) lines.push(`- 기본 자막: ${caps.join(' / ')}`);
-    lines.push('', '```', buildFlowPrompt(t, s.id, t.fallback.sceneEn, p?.id), '```');
+    lines.push('', '```', s.flowPromptOverride || buildFlowPrompt(t, s.id, t.fallback.sceneEn, p?.id), '```');
   }
 }
 

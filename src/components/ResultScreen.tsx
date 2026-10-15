@@ -1,6 +1,7 @@
 import React from 'react';
+import { Download } from 'lucide-react';
 import type { ShortsResult, ShortsTemplate } from '../types';
-import { BottomBar, CopyButton, PrimaryButton, SectionTitle, TemplateThumb } from './ui';
+import { BottomBar, CopyButton, PrimaryButton, SectionTitle } from './ui';
 
 interface Props {
   template: ShortsTemplate;
@@ -39,29 +40,46 @@ export const ResultScreen: React.FC<Props> = ({ template, subjectLabel, result, 
 
       {/* 이 영상을 만든 프롬프트 */}
       <section className="mt-8">
-        <SectionTitle>이 영상은 AI가 이렇게 만들었어요</SectionTitle>
+        <SectionTitle>내 AI 영상</SectionTitle>
         <div className="rounded-2xl bg-ink p-5 text-white">
-          <div className="flex gap-4">
-            <div className="w-16 shrink-0">
-              <TemplateThumb template={template} showTitle={false} />
-            </div>
-            <div>
-              <p className="text-[13px] font-semibold text-white/60">구글 Flow에 이렇게 주문했어요</p>
-              <p className="mt-1 text-[15px] font-semibold leading-snug">{result.sceneKo}</p>
-            </div>
+          <div className="mx-auto w-[70%] max-w-[260px] overflow-hidden rounded-xl bg-black">
+            <video
+              key={result.videoUrl}
+              src={result.videoUrl}
+              poster={result.posterUrl}
+              className="aspect-[9/16] w-full object-cover"
+              controls
+              playsInline
+              loop
+              preload="metadata"
+            />
           </div>
-          <p className="mt-4 border-t border-white/15 pt-4 text-[13px] leading-relaxed text-white/75" lang="en">
+          <a
+            href={result.videoUrl}
+            download
+            className="mt-4 flex w-full items-center justify-center gap-2 rounded-full bg-white py-3 text-[15px] font-bold text-ink active:scale-[0.98]"
+          >
+            <Download className="h-4 w-4" />
+            영상 저장하기
+          </a>
+          <p className="mt-2 text-center text-[12px] text-white/60">
+            휴대폰에 따라 사진첩 또는 파일 앱의 [다운로드]에 저장돼요.
+          </p>
+
+          <p className="mt-5 border-t border-white/15 pt-4 text-[13px] font-semibold text-white/60">구글 Flow에 이렇게 주문했어요</p>
+          <p className="mt-1 text-[15px] font-semibold leading-snug">{result.sceneKo}</p>
+          <p className="mt-3 text-[13px] leading-relaxed text-white/75">
             {result.flowPrompt}
           </p>
           <CopyButton
             text={result.flowPrompt}
             label="프롬프트 복사"
             doneLabel="복사됨"
-            className="mt-4 w-full !bg-white !text-ink"
+            className="mt-4 w-full !bg-white/10 !text-white"
           />
         </div>
         <p className="mt-3 rounded-2xl bg-surface p-4 text-[14px] leading-relaxed">
-          <span className="font-bold">찾아보기</span> · 캔바에서 영상을 열면 프롬프트와 비교해 보세요. 주문에 없었는데 AI가 마음대로
+          <span className="font-bold">찾아보기</span> · 영상과 프롬프트를 비교해 보세요. 주문에 없었는데 AI가 마음대로
           만들어 넣은 건 무엇일까요?
         </p>
       </section>

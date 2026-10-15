@@ -242,6 +242,8 @@ app.post('/api/generate', async (req, res) => {
       sceneKo: fallback.sceneKo,
       flowPrompt: fallback.flowPrompt,
       canvaUrl: fallback.canvaUrl,
+      videoUrl: fallback.videoUrl,
+      posterUrl: fallback.posterUrl,
       hashtags: aiTags.length ? aiTags : template.hashtags,
       mode: 'ai',
     };
