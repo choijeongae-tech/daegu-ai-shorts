@@ -6,8 +6,8 @@ import { IS_STATIC } from '../config/runtime';
 const STEPS: { key: AppStep; label: string }[] = [
   { key: 'quiz', label: '퀴즈' },
   { key: 'make', label: '고르기' },
-  { key: 'result', label: '자막' },
-  { key: 'finish', label: '캔바 완성' },
+  { key: 'result', label: '완성' },
+  { key: 'finish', label: '공유' },
 ];
 
 export const Header: React.FC<{

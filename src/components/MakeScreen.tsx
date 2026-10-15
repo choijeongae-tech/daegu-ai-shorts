@@ -45,7 +45,7 @@ export const MakeScreen: React.FC<Props> = ({
       onGenerated(
         buildFallbackResult(template, subjectId, '', protagonistId, moodId, previousCaptions),
         null,
-        '이 자막은 AI(Claude)가 미리 써 둔 문장 중에서 골랐어요. [자막 다시 만들기]를 누르면 다른 자막이 나와요.',
+        '추천 자막은 AI(Claude)가 미리 써 둔 문장 중에서 골랐어요.',
       );
       return;
     }
@@ -189,7 +189,7 @@ export const MakeScreen: React.FC<Props> = ({
           ) : !subjectId ? (
             template.subjectRole === 'theme' ? '방송 주제를 골라 주세요' : '주인공을 골라 주세요'
           ) : (
-            '내 자막 만들기'
+            '다음'
           )}
         </PrimaryButton>
         {!IS_STATIC && (

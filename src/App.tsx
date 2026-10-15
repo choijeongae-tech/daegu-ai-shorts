@@ -5,7 +5,8 @@
 
 import React, { useEffect, useState } from 'react';
 import type { AppStep, MoodId, ShortsResult, TemplateId } from './types';
-import { getTemplate } from './data/templates';
+import { buildFallbackResult, getTemplate } from './data/templates';
+import type { ComposeResult } from './services/compose';
 import { loadState, resetSession, saveState } from './services/session';
 import { Header } from './components/Header';
 import { HomeScreen } from './components/HomeScreen';
@@ -27,6 +28,7 @@ export const App: React.FC = () => {
   const [remaining, setRemaining] = useState<number | null>(saved?.remaining ?? null);
   const [notice, setNotice] = useState<string | null>(null);
   const [qrOpen, setQrOpen] = useState(false);
+  const [composed, setComposed] = useState<ComposeResult | null>(null);
 
   // 캔바에 다녀와도 그대로 이어지도록 저장
   useEffect(() => {
@@ -48,6 +50,7 @@ export const App: React.FC = () => {
     setResult(null);
     setRemaining(null);
     setNotice(null);
+    setComposed(null);
     go('home');
   };
 
@@ -91,19 +94,33 @@ export const App: React.FC = () => {
           />
         )}
 
-        {step === 'result' && hasResult && (
+        {(step === 'result' || (step === 'finish' && !composed)) && hasResult && (
           <ResultScreen
             template={template!}
             subjectLabel={subjectLabel}
             result={result!}
             notice={notice}
-            onRemake={() => go('make')}
-            onNext={() => go('finish')}
+            onChangeCaptions={(captions) => setResult({ ...result!, captions })}
+            onShuffle={() => {
+              const next = buildFallbackResult(template!, subjectId!, '', protagonistId, moodId, result!.captions);
+              setResult({ ...result!, captions: next.captions });
+            }}
+            onComposed={(c) => {
+              setComposed(c);
+              go('finish');
+            }}
+            onBack={() => go('make')}
           />
         )}
 
-        {step === 'finish' && hasResult && (
-          <FinishScreen template={template!} result={result!} onBack={() => go('result')} onRestart={restart} />
+        {step === 'finish' && hasResult && composed && (
+          <FinishScreen
+            template={template!}
+            result={result!}
+            composed={composed}
+            onBack={() => go('result')}
+            onRestart={restart}
+          />
         )}
       </main>
 

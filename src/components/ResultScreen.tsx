@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { RefreshCw } from 'lucide-react';
 import type { ShortsResult, ShortsTemplate } from '../types';
+import { canCompose, captionIndexAt, composeShorts, type ComposeResult } from '../services/compose';
 import { BottomBar, CopyButton, PrimaryButton, SaveVideoButton, SectionTitle } from './ui';
 
 interface Props {
@@ -7,81 +9,174 @@ interface Props {
   subjectLabel: string;
   result: ShortsResult;
   notice: string | null;
-  onRemake: () => void;
-  onNext: () => void;
+  onChangeCaptions: (captions: [string, string, string]) => void;
+  onShuffle: () => void;
+  onComposed: (composed: ComposeResult) => void;
+  onBack: () => void;
 }
 
-export const ResultScreen: React.FC<Props> = ({ template, subjectLabel, result, notice, onRemake, onNext }) => {
+const MAX_CAPTION = 24;
+
+export const ResultScreen: React.FC<Props> = ({
+  template,
+  subjectLabel,
+  result,
+  notice,
+  onChangeCaptions,
+  onShuffle,
+  onComposed,
+  onBack,
+}) => {
+  const previewRef = useRef<HTMLVideoElement>(null);
+  const [current, setCurrent] = useState(0);
+  const [progress, setProgress] = useState<number | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const supported = canCompose();
+
+  // 미리보기: 영상 시간에 맞춰 자막을 바꿔 보여 줌
+  useEffect(() => {
+    const v = previewRef.current;
+    if (!v) return;
+    const onTime = () => setCurrent(captionIndexAt(v.currentTime, v.duration));
+    v.addEventListener('timeupdate', onTime);
+    return () => v.removeEventListener('timeupdate', onTime);
+  }, [result.videoUrl]);
+
+  const edit = (i: number, value: string) => {
+    const next = [...result.captions] as [string, string, string];
+    next[i] = Array.from(value).slice(0, MAX_CAPTION).join('');
+    onChangeCaptions(next);
+  };
+
+  const make = () => {
+    setError(null);
+    setProgress(0);
+    previewRef.current?.pause();
+    composeShorts(result.videoUrl, result.captions, setProgress)
+      .then((composed) => {
+        setProgress(null);
+        onComposed(composed);
+      })
+      .catch(() => {
+        setProgress(null);
+        setError('이 휴대폰에서는 완성 영상을 만들지 못했어요. 부스 태블릿에서 다시 해 보거나, 아래 방법으로 캔바에서 완성해 주세요.');
+      });
+  };
+
+  const making = progress !== null;
+
   return (
     <div className="rise">
-      <h2 className="font-display text-[32px] leading-tight">내 자막이 나왔어요</h2>
+      <h2 className="font-display text-[32px] leading-tight">자막을 고르고 완성해요</h2>
       <p className="mt-2 text-[14px] text-muted">
         {template.title} · {subjectLabel}
       </p>
-      {notice && <p className="mt-3 rounded-xl bg-surface px-4 py-3 text-[13px] text-muted">{notice}</p>}
 
-      {/* 자막 */}
-      <section className="mt-8">
-        <SectionTitle hint="캔바 장면에 하나씩 붙여 넣어요">자막 3줄</SectionTitle>
-        <div className="divide-y divide-line overflow-hidden rounded-2xl bg-surface">
-          {result.captions.map((c, i) => (
-            <div key={i} className="flex items-center gap-3 px-4 py-3.5">
-              <span className="w-12 shrink-0 text-[12px] font-bold text-muted">장면 {i + 1}</span>
-              <p className="flex-1 text-[15px] font-semibold leading-snug">{c}</p>
-              <CopyButton text={c} />
+      {/* 미리보기 */}
+      <div className="relative mx-auto mt-6 w-[64%] max-w-[260px] overflow-hidden rounded-2xl bg-black shadow-[0_16px_40px_-20px_rgba(23,23,46,0.6)]">
+        <video
+          ref={previewRef}
+          key={result.videoUrl}
+          src={result.videoUrl}
+          poster={result.posterUrl}
+          className="aspect-[9/16] w-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+        />
+        <span className="absolute right-2 top-2 rounded-full bg-black/45 px-2 py-0.5 text-[10px] font-bold text-white">
+          AI로 만든 영상
+        </span>
+        <div className="pointer-events-none absolute inset-x-3 bottom-[18%] flex justify-center">
+          <span className="rounded-lg bg-[rgba(10,10,25,0.62)] px-3 py-1.5 text-center font-display text-[15px] leading-snug text-white">
+            {result.captions[current]}
+          </span>
+        </div>
+        {making && (
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-black/60 text-white">
+            <span className="text-[14px] font-bold">완성 영상 만드는 중</span>
+            <div className="h-1.5 w-2/3 overflow-hidden rounded-full bg-white/25">
+              <div className="h-full bg-rec transition-[width]" style={{ width: `${Math.round((progress ?? 0) * 100)}%` }} />
             </div>
+            <span className="text-[12px] text-white/70">화면을 끄지 말고 잠시 기다려 주세요</span>
+          </div>
+        )}
+      </div>
+      <p className="mt-2 text-center text-[12px] text-muted">미리보기는 소리 없이 나와요. 완성 영상에는 소리가 들어가요.</p>
+
+      {/* 자막 편집 */}
+      <section className="mt-8">
+        <SectionTitle hint={`장면마다 ${MAX_CAPTION}자까지`}>자막 3줄</SectionTitle>
+        <div className="space-y-2">
+          {result.captions.map((c, i) => (
+            <label key={i} className="flex items-center gap-3 rounded-2xl bg-surface px-4 py-2.5">
+              <span className="w-12 shrink-0 text-[12px] font-bold text-muted">장면 {i + 1}</span>
+              <input
+                id={`caption-${i}`}
+                value={c}
+                onChange={(e) => edit(i, e.target.value)}
+                onFocus={() => setCurrent(i)}
+                disabled={making}
+                className="min-w-0 flex-1 bg-transparent py-1.5 text-[15px] font-semibold outline-none"
+              />
+            </label>
           ))}
         </div>
-        <div className="mt-2 flex justify-end">
-          <CopyButton text={result.captions.join('\n')} label="3줄 한꺼번에 복사" />
+        <div className="mt-2 flex items-center justify-between gap-2">
+          <p className="text-[12px] text-muted">눌러서 내 말로 고쳐 써도 돼요.</p>
+          <button
+            type="button"
+            onClick={onShuffle}
+            disabled={making}
+            className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-paper px-3.5 py-2 text-[13px] font-semibold text-ink active:bg-line"
+          >
+            <RefreshCw className="h-3.5 w-3.5" />
+            다른 자막 추천
+          </button>
         </div>
+        {notice && <p className="mt-3 text-[12px] leading-relaxed text-muted">{notice}</p>}
       </section>
 
-      {/* 이 영상을 만든 프롬프트 */}
-      <section className="mt-8">
-        <SectionTitle>내 AI 영상</SectionTitle>
-        <div className="rounded-2xl bg-ink p-5 text-white">
-          <div className="mx-auto w-[70%] max-w-[260px] overflow-hidden rounded-xl bg-black">
-            <video
-              key={result.videoUrl}
-              src={result.videoUrl}
-              poster={result.posterUrl}
-              className="aspect-[9/16] w-full object-cover"
-              controls
-              playsInline
-              loop
-              preload="metadata"
+      {error && <p className="mt-6 rounded-2xl bg-rec-soft p-4 text-[14px] leading-relaxed text-ink">{error}</p>}
+
+      {/* 완성 영상을 만들 수 없는 휴대폰: 캔바로 완성 */}
+      {(!supported || error) && (
+        <section className="mt-6 rounded-2xl bg-surface p-4">
+          <SectionTitle>캔바에서 완성하기</SectionTitle>
+          <ol className="list-decimal space-y-1 pl-5 text-[14px] leading-relaxed">
+            <li>영상을 저장해요.</li>
+            <li>캔바 템플릿에 영상을 올리고, 템플릿 배경음악은 꺼 주세요.</li>
+            <li>자막을 복사해 장면마다 붙여 넣어요.</li>
+          </ol>
+          <div className="mt-3 space-y-2">
+            <SaveVideoButton
+              url={result.videoUrl}
+              filename={result.videoUrl.split('/').pop() || 'ai-shorts.mp4'}
+              className="bg-ink text-white"
             />
+            <CopyButton text={result.captions.join('\n')} label="자막 3줄 복사" className="w-full" />
+            <a
+              href={result.canvaUrl || template.canvaUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block text-center text-[14px] font-bold text-rec underline underline-offset-2"
+            >
+              캔바 템플릿 열기
+            </a>
           </div>
-          <SaveVideoButton
-            url={result.videoUrl}
-            filename={result.videoUrl.split('/').pop() || 'ai-shorts.mp4'}
-            className="mt-4 bg-white text-ink"
-            dark
-          />
-
-          <p className="mt-5 border-t border-white/15 pt-4 text-[13px] font-semibold text-white/60">구글 Flow에 이렇게 주문했어요</p>
-          <p className="mt-1 text-[15px] font-semibold leading-snug">{result.sceneKo}</p>
-          <p className="mt-3 text-[13px] leading-relaxed text-white/75">
-            {result.flowPrompt}
-          </p>
-          <CopyButton
-            text={result.flowPrompt}
-            label="프롬프트 복사"
-            doneLabel="복사됨"
-            className="mt-4 w-full !bg-white/10 !text-white"
-          />
-        </div>
-        <p className="mt-3 rounded-2xl bg-surface p-4 text-[14px] leading-relaxed">
-          <span className="font-bold">찾아보기</span> · 영상과 프롬프트를 비교해 보세요. 주문에 없었는데 AI가 마음대로
-          만들어 넣은 건 무엇일까요?
-        </p>
-      </section>
+        </section>
+      )}
 
       <BottomBar>
-        <PrimaryButton onClick={onNext}>캔바에서 완성하기</PrimaryButton>
-        <button type="button" onClick={onRemake} className="mt-2 w-full py-2 text-[13px] font-semibold text-muted">
-          자막 다시 만들기
+        {supported && !error ? (
+          <PrimaryButton onClick={make} disabled={making || result.captions.some((c) => !c.trim())}>
+            {making ? '만드는 중…' : '완성 쇼츠 만들기'}
+          </PrimaryButton>
+        ) : null}
+        <button type="button" onClick={onBack} disabled={making} className="mt-2 w-full py-2 text-[13px] font-semibold text-muted">
+          템플릿·주인공 다시 고르기
         </button>
       </BottomBar>
     </div>
