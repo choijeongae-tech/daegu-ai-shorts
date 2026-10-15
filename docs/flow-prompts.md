@@ -1,4 +1,4 @@
-# 구글 Flow 영상 프롬프트 (22개)
+# 구글 Flow 영상 프롬프트 (23개)
 
 각 프롬프트를 Flow에 그대로 붙여 넣어 영상을 만든 뒤, 해당 캔바 템플릿 사본에 넣어 주세요.
 영상에 영어 말소리가 섞여 나오면 다시 생성하세요. (대사가 있는 템플릿은 한국어 대사만, 나머지는 대사 없이 만들도록 지정돼 있어요)
@@ -19,6 +19,7 @@
 | ☐ | 크리에이터 첫 방송 | 여성 · 하은 / 먹방 | creator-junho_female_mukbang.mp4 | `creator-junho` → `mukbang` → canvaUrl (주인공 공통) |
 | ☐ | 크리에이터 첫 방송 | 여성 · 하은 / 여행 브이로그 | creator-junho_female_travel.mp4 | `creator-junho` → `travel` → canvaUrl (주인공 공통) |
 | ☐ | 크리에이터 첫 방송 | 여성 · 하은 / 음악 방송 | creator-junho_female_music.mp4 | `creator-junho` → `music` → canvaUrl (주인공 공통) |
+| ☐ | 레트로 아케이드 게임 | 고양이 기사 | retro-arcade_cat-knight.mp4 | `retro-arcade` → `cat-knight` → canvaUrl |
 | ☐ | 레트로 아케이드 게임 | 로봇 히어로 | retro-arcade_robot.mp4 | `retro-arcade` → `robot` → canvaUrl |
 | ☐ | 레트로 아케이드 게임 | 우주 탐험가 | retro-arcade_astronaut.mp4 | `retro-arcade` → `astronaut` → canvaUrl |
 | ☐ | 레트로 아케이드 게임 | 꼬마 마법사 | retro-arcade_wizard.mp4 | `retro-arcade` → `wizard` → canvaUrl |
@@ -148,6 +149,12 @@ Vertical 9:16 video. Modern broadcast studio in a community media center, a red 
 장면: 캐릭터가 발판을 뛰어넘으며 금화와 별을 모으고, 픽셀 불꽃놀이 속에서 승리 포즈를 취하는 장면
 
 소리: 대사 없이 음악·효과음만
+
+### 고양이 기사  (`retro-arcade_cat-knight.mp4`)
+
+```
+Vertical 9:16 video. 16-bit retro pixel art video game, side-scrolling arcade stage, chunky pixels, vivid CRT colors. Main character: a brave cat knight with a tiny sword. The character jumps across floating platforms, collects spinning gold coins and a glowing star, then strikes a victory pose as pixel fireworks burst in the sky. Side-scrolling camera. Audio: no dialogue, no narration, no singing, no voice of any kind. Only 8-bit chiptune game music, coin and jump sound effects. No on-screen text, no subtitles, no logos.
+```
 
 ### 로봇 히어로  (`retro-arcade_robot.mp4`)
 

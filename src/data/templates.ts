@@ -137,6 +137,7 @@ export const TEMPLATES: ShortsTemplate[] = [
     subjectQuestion: '내 캐릭터는?',
     subjectRole: 'character',
     subjects: [
+      { id: 'cat-knight', label: '고양이 기사', en: 'a brave cat knight with a tiny sword', canvaUrl: '' },
       { id: 'robot', label: '로봇 히어로', en: 'a small round robot hero with glowing eyes', canvaUrl: '' },
       { id: 'astronaut', label: '우주 탐험가', en: 'a little astronaut explorer in a white suit', canvaUrl: '' },
       { id: 'wizard', label: '꼬마 마법사', en: 'a young wizard with a glowing star staff', canvaUrl: '' },
