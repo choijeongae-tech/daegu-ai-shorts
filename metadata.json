@@ -1,0 +1,8 @@
+{
+  "name": "2026 대구 콘텐츠페어 AI 쇼츠 스튜디오",
+  "description": "대구1인미디어센터와 함께하는 미디어 리터러시 퀴즈 + 구글 Flow 영상 프롬프트 + 캔바 템플릿 12초 쇼츠 제작 모바일 스튜디오",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

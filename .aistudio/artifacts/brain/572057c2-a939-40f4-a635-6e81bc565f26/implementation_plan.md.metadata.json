@@ -1,0 +1,6 @@
+{
+  "summary": "피드백을 반영하여 Gemini 모델 유지(gemini-3.8-flash), 120자 초과 시 API 재호출 없이 즉시 검증된 기본 프롬프트로 대체하는 정책, Canva 이동 후 복귀 시 대본 및 수정 프롬프트의 완전한 영속성(localStorage + React 상태)을 구체화한 개정 계획서입니다.",
+  "updatedAt": "2026-10-14T21:21:38.266113373Z",
+  "requestFeedback": true,
+  "userFacing": true
+}

@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+/*
+ * 디자인 토큰 — 'REC(녹화) 빨강' 하나만 강조색으로 씁니다.
+ * paper: 배경 / surface: 카드 / ink: 글자 / muted: 보조 글자 / line: 구분선 / rec: 강조
+ */
+@theme {
+  --color-paper: #f3f4f8;
+  --color-surface: #ffffff;
+  --color-ink: #17172e;
+  --color-muted: #6b6c80;
+  --color-line: #e2e3ec;
+  --color-rec: #e8293a;
+  --color-rec-soft: #ffe9eb;
+  --color-ok: #138a5a;
+  --color-ok-soft: #e3f6ed;
+
+  --font-display: 'Black Han Sans', 'Pretendard Variable', Pretendard, sans-serif;
+  --font-sans: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, 'Apple SD Gothic Neo',
+    'Noto Sans KR', 'Malgun Gothic', sans-serif;
+}
+
+@layer base {
+  html {
+    background: var(--color-paper);
+  }
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    background: var(--color-paper);
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    word-break: keep-all;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-rec);
+    outline-offset: 2px;
+  }
+}
+
+@keyframes rec-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+.rec-dot {
+  animation: rec-blink 1.4s ease-in-out infinite;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.rise {
+  animation: rise 0.25s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rec-dot,
+  .rise {
+    animation: none;
+  }
+}
