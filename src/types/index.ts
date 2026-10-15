@@ -49,6 +49,16 @@ export interface ShortsTemplate {
   keywordPlaceholder: string;
   /** Flow 영상의 화면 스타일 (영문) */
   styleEn: string;
+  /**
+   * 영상 소리. 지정하지 않으면 Flow가 영어 대사·내레이션을 넣는 경우가 많습니다.
+   * - lineKo가 있으면: 화면 속 인물이 이 한국어 대사만 말하게 합니다.
+   * - lineKo가 없으면: 대사·내레이션 없이 음악과 효과음만 넣습니다.
+   */
+  audio: {
+    lineKo?: string;
+    /** 배경 소리 (영문) */
+    soundEn: string;
+  };
   /** Gemini에게 주는 템플릿 설명 (한글) */
   briefKo: string;
   fallback: {

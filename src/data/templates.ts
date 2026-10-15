@@ -33,6 +33,7 @@ export const TEMPLATES: ShortsTemplate[] = [
     keywordPlaceholder: '예: 간식 리뷰, 산책 브이로그',
     styleEn: 'Bright and cozy home vlog look, soft natural window light, shallow depth of field, cute and playful mood',
     briefKo: '반려동물이 1인 크리에이터처럼 카메라 앞에서 방송하는 귀엽고 유쾌한 쇼츠',
+    audio: { soundEn: 'cute pet sounds and soft, cheerful background music' },
     fallback: {
       captions: ['오늘부터 우리 집 막내도 크리에이터!', '카메라만 켜면 표정 연기가 시작돼요', '구독과 간식은 언제나 환영이에요'],
       sceneEn:
@@ -56,12 +57,16 @@ export const TEMPLATES: ShortsTemplate[] = [
       { id: 'game', label: '게임 방송', en: 'a live game stream, wearing a gaming headset with a controller in hand', canvaUrl: '' },
       { id: 'mukbang', label: '먹방', en: 'a mukbang, tasting spicy tteokbokki and Korean street food at the desk', canvaUrl: '' },
       { id: 'travel', label: '대구 여행', en: 'a Daegu travel vlog, showing a small camera and a city map', canvaUrl: '' },
-      { id: 'music', label: '노래 커버', en: 'a song cover, singing into a studio microphone', canvaUrl: '' },
+      { id: 'music', label: '노래 커버', en: 'a music show, standing at a studio microphone with a guitar', canvaUrl: '' },
     ],
     keywordPlaceholder: '예: 채널 이름, 첫 인사말',
     styleEn:
       'Modern broadcast studio in a community media center, a red ON AIR light glowing, colorful LED panels, crisp cinematic lighting',
     briefKo: '신인 크리에이터 준호가 1인미디어센터 스튜디오에서 첫 방송을 시작하는 쇼츠',
+    audio: {
+      lineKo: '안녕하세요, 크리에이터 준호입니다! 오늘 첫 방송 시작할게요!',
+      soundEn: 'light upbeat studio background music',
+    },
     fallback: {
       captions: ['신인 크리에이터 준호, 첫 방송 시작!', '좋아하는 걸 이야기하면 그게 콘텐츠', '지금 온에어 버튼을 함께 눌러요'],
       sceneEn:
@@ -88,6 +93,7 @@ export const TEMPLATES: ShortsTemplate[] = [
     keywordPlaceholder: '예: 빨간 망토, 별 모양 방패',
     styleEn: '16-bit retro pixel art video game, side-scrolling arcade stage, chunky pixels, vivid CRT colors',
     briefKo: '내가 만든 캐릭터가 레트로 픽셀 게임 속 주인공이 되어 스테이지를 클리어하는 쇼츠',
+    audio: { soundEn: '8-bit chiptune game music, coin and jump sound effects' },
     fallback: {
       captions: ['게임 스타트! 내 캐릭터가 등장했다', '퀘스트: 콘텐츠페어의 보물을 찾아라', '미션 클리어! 다음 스테이지로 가요'],
       sceneEn:
@@ -115,6 +121,10 @@ export const TEMPLATES: ShortsTemplate[] = [
     styleEn:
       'Bright documentary-style event vlog inside a large modern exhibition hall in Daegu, South Korea, colorful booths, lively crowd, handheld gimbal shot',
     briefKo: '2026 대구 콘텐츠페어에 다녀온 관람객의 방문 후기 쇼츠',
+    audio: {
+      lineKo: '와, 대구 콘텐츠페어 진짜 재밌다!',
+      soundEn: 'lively exhibition hall ambience and upbeat background music',
+    },
     fallback: {
       captions: ['대구 콘텐츠페어, 직접 와 봤어요!', '보고 듣고 만들고, 하루가 짧았어요', '내년에도 꼭 다시 올 거예요'],
       sceneEn:
@@ -157,7 +167,10 @@ export function buildFlowPrompt(template: ShortsTemplate, subjectId: string, sce
     template.subjectRole === 'theme'
       ? `${template.protagonistEn}. The video is ${subject.en}.`
       : `Main character: ${subject.en}.`;
-  return `Vertical 9:16 video. ${template.styleEn}. ${who} ${sceneEn.trim()} No on-screen text, no subtitles, no logos.`;
+  const audio = template.audio.lineKo
+    ? `Audio: the person on screen says in Korean, "${template.audio.lineKo}" Spoken language is Korean only, natural native Korean pronunciation; no English speech, no narration. Background: ${template.audio.soundEn}.`
+    : `Audio: no dialogue, no narration, no singing, no voice of any kind. Only ${template.audio.soundEn}.`;
+  return `Vertical 9:16 video. ${template.styleEn}. ${who} ${sceneEn.trim()} ${audio} No on-screen text, no subtitles, no logos.`;
 }
 
 /** 준비된 결과 — AI를 쓸 수 없을 때의 자막 + 미리 만든 영상의 프롬프트·캔바 링크 (서버·앱 공용) */
@@ -166,7 +179,9 @@ export function buildFallbackResult(template: ShortsTemplate, subjectId: string,
   const subject = template.subjects.find((s) => s.id === subjectId) || template.subjects[0];
   return {
     captions: [...template.fallback.captions] as [string, string, string],
-    sceneKo: template.fallback.sceneKo,
+    sceneKo: template.audio.lineKo
+      ? `${template.fallback.sceneKo} (대사: "${template.audio.lineKo}")`
+      : `${template.fallback.sceneKo} (대사 없이 음악·효과음만)`,
     flowPrompt: buildFlowPrompt(template, subject.id, template.fallback.sceneEn),
     canvaUrl: subject.canvaUrl || template.canvaUrl,
     hashtags: [...template.hashtags, ...(kwTag ? [kwTag] : [])],
