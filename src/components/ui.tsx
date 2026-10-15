@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Check, Copy, Download, Loader2 } from 'lucide-react';
-import { IS_STATIC, getDownloads } from '../config/runtime';
+import { ASSET_VERSION, IS_STATIC, getDownloads } from '../config/runtime';
 import type { ShortsTemplate } from '../types';
 
 export async function copyText(text: string): Promise<boolean> {
@@ -116,7 +116,7 @@ export const TemplateThumb: React.FC<{
     >
       {imgOk && (
         <img
-          src={`/thumbnails/${template.thumbnail}`}
+          src={`thumbnails/${template.thumbnail}?v=${ASSET_VERSION}`}
           alt=""
           className="absolute inset-0 h-full w-full object-cover"
           onError={() => setImgOk(false)}

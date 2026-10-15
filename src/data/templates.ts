@@ -19,6 +19,9 @@
 import type { ShortsTemplate, MoodInfo, TemplateId, MoodId, ShortsResult } from '../types';
 import { pickCaptionSet } from './captionPool.ts';
 
+// 영상·대표 이미지 주소에 붙이는 버전 (영상을 바꾸면 이 숫자를 올려 주세요)
+const MEDIA_VERSION = '2';
+
 /** 강아지·쿼카 기사 영상에 실제로 쓴 프롬프트 (캐릭터 그림을 첨부해 만든 영상) */
 const PIXEL_QUEST_PROMPT =
   'PIXEL QUEST 12초짜리 미션 수행형 레트로 픽셀 게임 영상.영상 기본 설정: 세로형 1080×1920px 총 12초 3장면, 각 4초16비트 레트로 게임 스타일네온 퍼플, 코발트블루, 픽셀 그린 게임 시작 및 아이템 획득 효과음 포함SCENE 01: GAME START (0~4초)픽셀 게임 도시 배경PLAYER 1 LOGIN게임 로딩바콘텐츠 큐브 3개 수집 미션. 캐릭터 등장hookSCENE 02: QUEST ACTION (4~8초). 첨부된 캐릭터가 픽셀 큐브 3개를 순차적으로 획득하는 애니메이션. 진행바 0/3 → 1/3 → 2/3 → 3/3+100 점수 팝업, 획득 반짝임, 점프 효과SCENE 03: MISSION CLEAR (8~12초)MISSION CLEAR 타이틀LEVEL UP 그래픽픽셀 폭죽과 트로피callToAction. 텍스트 편집 영역. 2026 대구 콘텐츠페어 표기(한글 오타 주의)';
@@ -314,8 +317,8 @@ export function buildFallbackResult(
         : `${sceneKo} (대사 없이 음악·효과음만)`,
     flowPrompt:
       subject.flowPromptOverride || buildFlowPrompt(template, subject.id, template.fallback.sceneEn, protagonist?.id),
-    videoUrl: `videos/${videoBaseName(template, subject.id, protagonist?.id)}.mp4`,
-    posterUrl: `videos/${videoBaseName(template, subject.id, protagonist?.id)}.jpg`,
+    videoUrl: `videos/${videoBaseName(template, subject.id, protagonist?.id)}.mp4?v=${MEDIA_VERSION}`,
+    posterUrl: `videos/${videoBaseName(template, subject.id, protagonist?.id)}.jpg?v=${MEDIA_VERSION}`,
     canvaUrl:
       (protagonist && subject.canvaUrlByProtagonist?.[protagonist.id]) || subject.canvaUrl || template.canvaUrl,
     hashtags: [...template.hashtags, ...(kwTag ? [kwTag] : [])],

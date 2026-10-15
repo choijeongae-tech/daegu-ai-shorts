@@ -19,3 +19,6 @@ export async function getDownloads(): Promise<DownloadsApi | null> {
     return null;
   }
 }
+
+/** 이미지가 바뀌었을 때 휴대폰에 남은 예전 사진(캐시) 대신 새 사진을 받도록 붙이는 번호 (빌드할 때마다 바뀜) */
+export const ASSET_VERSION: string = __BUILD_ID__;

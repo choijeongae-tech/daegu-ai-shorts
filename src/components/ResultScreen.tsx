@@ -153,7 +153,7 @@ export const ResultScreen: React.FC<Props> = ({
           <div className="mt-3 space-y-2">
             <SaveVideoButton
               url={result.videoUrl}
-              filename={result.videoUrl.split('/').pop() || 'ai-shorts.mp4'}
+              filename={result.videoUrl.split('?')[0].split('/').pop() || 'ai-shorts.mp4'}
               className="bg-ink text-white"
             />
             <CopyButton text={result.captions.join('\n')} label="자막 3줄 복사" className="w-full" />
