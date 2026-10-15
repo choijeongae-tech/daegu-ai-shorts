@@ -19,6 +19,7 @@ export const App: React.FC = () => {
   const saved = loadState();
   const [step, setStep] = useState<AppStep>(saved?.result ? saved.step : 'home');
   const [templateId, setTemplateId] = useState<TemplateId | null>(saved?.templateId ?? null);
+  const [protagonistId, setProtagonistId] = useState<string | null>(saved?.protagonistId ?? null);
   const [subjectId, setSubjectId] = useState<string | null>(saved?.subjectId ?? null);
   const [moodId, setMoodId] = useState<MoodId>(saved?.moodId ?? 'cheerful');
   const [keyword, setKeyword] = useState(saved?.keyword ?? '');
@@ -29,8 +30,8 @@ export const App: React.FC = () => {
 
   // 캔바에 다녀와도 그대로 이어지도록 저장
   useEffect(() => {
-    saveState({ step, templateId, subjectId, moodId, keyword, result, remaining });
-  }, [step, templateId, subjectId, moodId, keyword, result, remaining]);
+    saveState({ step, templateId, protagonistId, subjectId, moodId, keyword, result, remaining });
+  }, [step, templateId, protagonistId, subjectId, moodId, keyword, result, remaining]);
 
   const go = (next: AppStep) => {
     setStep(next);
@@ -40,6 +41,7 @@ export const App: React.FC = () => {
   const restart = () => {
     resetSession();
     setTemplateId(null);
+    setProtagonistId(null);
     setSubjectId(null);
     setMoodId('cheerful');
     setKeyword('');
@@ -50,7 +52,9 @@ export const App: React.FC = () => {
   };
 
   const template = getTemplate(templateId ?? undefined);
-  const subjectLabel = template?.subjects.find((s) => s.id === subjectId)?.label ?? '';
+  const subjectName = template?.subjects.find((s) => s.id === subjectId)?.label ?? '';
+  const protagonistName = template?.protagonists?.find((p) => p.id === protagonistId)?.label;
+  const subjectLabel = protagonistName ? `${protagonistName} · ${subjectName}` : subjectName;
   const hasResult = !!(template && result);
 
   return (
@@ -65,12 +69,14 @@ export const App: React.FC = () => {
         {(step === 'make' || ((step === 'result' || step === 'finish') && !hasResult)) && (
           <MakeScreen
             templateId={templateId}
+            protagonistId={protagonistId}
             subjectId={subjectId}
             moodId={moodId}
             keyword={keyword}
             remaining={remaining}
             onChange={(p) => {
               if (p.templateId !== undefined) setTemplateId(p.templateId);
+              if (p.protagonistId !== undefined) setProtagonistId(p.protagonistId);
               if (p.subjectId !== undefined) setSubjectId(p.subjectId);
               if (p.moodId !== undefined) setMoodId(p.moodId);
               if (p.keyword !== undefined) setKeyword(p.keyword);

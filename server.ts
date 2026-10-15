@@ -7,6 +7,7 @@ import { fileURLToPath } from 'url';
 import {
   MOODS,
   getTemplate,
+  getProtagonist,
   isMoodId,
   buildFallbackResult,
 } from './src/data/templates.ts';
@@ -113,7 +114,7 @@ function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
  * 3. POST /api/generate — 자막 3줄 (+ 미리 만든 영상의 Flow 프롬프트)
  * ------------------------------------------------------------------ */
 app.post('/api/generate', async (req, res) => {
-  const { sessionId, templateId, subjectId, moodId, keyword } = req.body || {};
+  const { sessionId, templateId, subjectId, moodId, keyword, protagonistId } = req.body || {};
 
   const template = getTemplate(templateId);
   const subject = template?.subjects.find((s) => s.id === subjectId);
@@ -122,7 +123,8 @@ app.post('/api/generate', async (req, res) => {
   }
 
   const userKeyword = typeof keyword === 'string' ? keyword.trim().slice(0, 30) : '';
-  const fallback = buildFallbackResult(template, subject.id, userKeyword);
+  const protagonist = getProtagonist(template, typeof protagonistId === 'string' ? protagonistId : null);
+  const fallback = buildFallbackResult(template, subject.id, userKeyword, protagonist?.id);
   const sid = sessionId.slice(0, 64);
 
   let rec = sessions.get(sid);
@@ -172,8 +174,8 @@ app.post('/api/generate', async (req, res) => {
 
   const mood = MOODS.find((m) => m.id === moodId)!;
   const who =
-    template.subjectRole === 'theme'
-      ? `주인공은 '크리에이터 준호'(20대 한국인 남성)이고, 방송 주제는 '${subject.label}'입니다.`
+    template.subjectRole === 'theme' && protagonist
+      ? `주인공은 '크리에이터 ${protagonist.nameKo}'(${protagonist.label})이고, 방송 주제는 '${subject.label}'입니다.`
       : `주인공은 '${subject.label}'입니다.`;
 
   const prompt = `
@@ -244,7 +246,7 @@ app.post('/api/generate', async (req, res) => {
       mode: 'ai',
     };
 
-    console.log(`[SUCCESS] ${template.id}/${subject.id}/${moodId}`);
+    console.log(`[SUCCESS] ${template.id}/${protagonist?.id ?? '-'}/${subject.id}/${moodId}`);
     return res.json({ success: true, data: result, remaining: MAX_PER_SESSION - rec.count });
   } catch (error: any) {
     refund = true; // AI 실패는 횟수에서 빼지 않음

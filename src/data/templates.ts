@@ -8,7 +8,7 @@
  *   비워 두면 그 템플릿의 기본 링크(canvaUrl)가 열립니다.
  * - 썸네일 이미지는 public/thumbnails/ 폴더에 thumbnail 이름 그대로(9:16 세로 이미지) 넣어 주세요.
  *   파일이 없으면 색 배경 썸네일이 자동으로 보입니다.
- * - '크리에이터 준호'의 생김새(protagonistEn)는 캔바 템플릿 속 준호와 비슷하게 고쳐 주세요.
+ * - '크리에이터 첫 방송'의 주인공(준호·하은) 이름·생김새는 protagonists에서 고칠 수 있어요.
  *
  * ※ Flow 영상 프롬프트(en, styleEn, sceneEn)에는 실제 지명·기관명·행사명을 넣지 마세요.
  *   실존 장소를 사실처럼 보여 주는 영상은 Flow가 거부할 수 있어요. (자막을 쓰는 briefKo에는 괜찮습니다)
@@ -47,36 +47,51 @@ export const TEMPLATES: ShortsTemplate[] = [
   },
   {
     id: 'creator-junho',
-    title: '크리에이터 준호',
+    title: '크리에이터 첫 방송',
     oneLiner: '1인미디어센터 스튜디오에서 첫 방송을 시작해요',
     canvaUrl: 'https://canva.link/8jvnmcka6hljch6',
     thumbnail: 'creator-junho.jpg',
     tint: ['#3D3DF5', '#F0313B'],
-    subjectQuestion: '준호의 첫 방송 주제는?',
+    subjectQuestion: '첫 방송 주제는?',
     subjectRole: 'theme',
-    protagonistEn:
-      'Main character: Junho, a friendly Korean man in his early 20s with short black hair, wearing a casual hoodie',
+    protagonistQuestion: '주인공은?',
+    protagonists: [
+      {
+        id: 'male',
+        label: '남성 · 준호',
+        nameKo: '준호',
+        en: 'Junho, a friendly Korean man in his early 20s with short black hair, wearing a casual hoodie',
+        lineKo: '안녕하세요, 크리에이터 준호입니다! 오늘 첫 방송 시작할게요!',
+      },
+      {
+        id: 'female',
+        label: '여성 · 하은',
+        nameKo: '하은',
+        en: 'Haeun, a friendly Korean woman in her early 20s with shoulder-length black hair, wearing a casual hoodie',
+        lineKo: '안녕하세요, 크리에이터 하은입니다! 오늘 첫 방송 시작할게요!',
+      },
+    ],
     subjects: [
-      { id: 'game', label: '게임 방송', en: 'a live game stream, wearing a gaming headset with a controller in hand', canvaUrl: '' },
-      { id: 'mukbang', label: '먹방', en: 'a mukbang, tasting spicy tteokbokki and Korean street food at the desk', canvaUrl: '' },
-      { id: 'travel', label: '여행 브이로그', en: 'a travel vlog show, holding a small camera and a paper map, with colorful travel photos pinned on the wall behind him', canvaUrl: '' },
-      { id: 'music', label: '노래 커버', en: 'a music show, standing at a studio microphone with a guitar', canvaUrl: '' },
+      { id: 'game', label: '게임 방송', en: 'a live game stream, wearing a gaming headset with a controller in hand', canvaUrl: '', canvaUrlByProtagonist: { male: '', female: '' } },
+      { id: 'mukbang', label: '먹방', en: 'a mukbang, tasting spicy tteokbokki and Korean street food at the desk', canvaUrl: '', canvaUrlByProtagonist: { male: '', female: '' } },
+      { id: 'travel', label: '여행 브이로그', en: 'a travel vlog show, holding a small camera and a paper map, with colorful travel photos pinned on the wall', canvaUrl: '', canvaUrlByProtagonist: { male: '', female: '' } },
+      { id: 'music', label: '음악 방송', en: 'a music show, standing at a studio microphone with a guitar', canvaUrl: '', canvaUrlByProtagonist: { male: '', female: '' } },
     ],
     keywordPlaceholder: '예: 채널 이름, 첫 인사말',
     styleEn:
       'Modern broadcast studio in a community media center, a red ON AIR light glowing, colorful LED panels, crisp cinematic lighting',
-    briefKo: '신인 크리에이터 준호가 1인미디어센터 스튜디오에서 첫 방송을 시작하는 쇼츠',
+    briefKo: '신인 크리에이터가 1인미디어센터 스튜디오에서 첫 방송을 시작하는 쇼츠',
     audio: {
-      lineKo: '안녕하세요, 크리에이터 준호입니다! 오늘 첫 방송 시작할게요!',
+      // 실제 대사는 위 protagonists의 lineKo를 씁니다
       soundEn: 'light upbeat studio background music',
     },
     fallback: {
-      captions: ['신인 크리에이터 준호, 첫 방송 시작!', '좋아하는 걸 이야기하면 그게 콘텐츠', '지금 온에어 버튼을 함께 눌러요'],
+      captions: ['신인 크리에이터, 오늘 첫 방송 시작!', '좋아하는 걸 이야기하면 그게 콘텐츠', '지금 온에어 버튼을 함께 눌러요'],
       sceneEn:
-        'He sits down at the desk, puts on headphones, smiles at the camera as the ON AIR light turns on behind him, then waves to the viewers. Smooth dolly-in.',
-      sceneKo: '준호가 책상에 앉아 헤드폰을 쓰고, 뒤에 ON AIR 불이 켜지자 카메라에 손을 흔드는 장면',
+        'The creator sits down at the desk, puts on headphones, smiles at the camera as the ON AIR light turns on in the background, then waves to the viewers. Smooth dolly-in.',
+      sceneKo: '크리에이터가 책상에 앉아 헤드폰을 쓰고, 뒤에 ON AIR 불이 켜지자 카메라에 손을 흔드는 장면',
     },
-    hashtags: ['#크리에이터준호', '#첫방송'],
+    hashtags: ['#크리에이터첫방송', '#1인미디어'],
   },
   {
     id: 'retro-arcade',
@@ -159,34 +174,62 @@ export function isTemplateId(id: unknown): id is TemplateId {
   return TEMPLATES.some((t) => t.id === id);
 }
 
+/** 이름 뒤 주격 조사: 받침 있으면 '이', 없으면 '가' (하은이 / 준호가) */
+function withSubjectParticle(name: string): string {
+  const code = name.charCodeAt(name.length - 1) - 0xac00;
+  const hasFinal = code >= 0 && code <= 11171 && code % 28 !== 0;
+  return `${name}${hasFinal ? '이' : '가'}`;
+}
+
+export function getProtagonist(template: ShortsTemplate, protagonistId?: string | null) {
+  if (!template.protagonists?.length) return undefined;
+  return template.protagonists.find((p) => p.id === protagonistId) || template.protagonists[0];
+}
+
 /**
  * Flow 최종 프롬프트 조립.
  * 주인공 묘사는 AI가 아니라 앱이 항상 같은 자리에 넣습니다.
- * (AI는 '장면'만 씁니다 → 주인공 설정이 빠지거나 서로 모순되는 일이 없습니다)
+ * (주인공 설정이 빠지거나 서로 모순되는 일이 없습니다)
  */
-export function buildFlowPrompt(template: ShortsTemplate, subjectId: string, sceneEn: string): string {
+export function buildFlowPrompt(
+  template: ShortsTemplate,
+  subjectId: string,
+  sceneEn: string,
+  protagonistId?: string | null,
+): string {
   const subject = template.subjects.find((s) => s.id === subjectId) || template.subjects[0];
+  const protagonist = getProtagonist(template, protagonistId);
   const who =
-    template.subjectRole === 'theme'
-      ? `${template.protagonistEn}. The video is ${subject.en}.`
+    template.subjectRole === 'theme' && protagonist
+      ? `Main character: ${protagonist.en}. The video is ${subject.en}.`
       : `Main character: ${subject.en}.`;
-  const audio = template.audio.lineKo
-    ? `Audio: the person on screen says in Korean, "${template.audio.lineKo}" Spoken language is Korean only, natural native Korean pronunciation; no English speech, no narration. Background: ${template.audio.soundEn}.`
+  const lineKo = protagonist?.lineKo || template.audio.lineKo;
+  const audio = lineKo
+    ? `Audio: the person on screen says in Korean, "${lineKo}" Spoken language is Korean only, natural native Korean pronunciation; no English speech, no narration. Background: ${template.audio.soundEn}.`
     : `Audio: no dialogue, no narration, no singing, no voice of any kind. Only ${template.audio.soundEn}.`;
   return `Vertical 9:16 video. ${template.styleEn}. ${who} ${sceneEn.trim()} ${audio} No on-screen text, no subtitles, no logos.`;
 }
 
 /** 준비된 결과 — AI를 쓸 수 없을 때의 자막 + 미리 만든 영상의 프롬프트·캔바 링크 (서버·앱 공용) */
-export function buildFallbackResult(template: ShortsTemplate, subjectId: string, keyword = ''): ShortsResult {
+export function buildFallbackResult(
+  template: ShortsTemplate,
+  subjectId: string,
+  keyword = '',
+  protagonistId?: string | null,
+): ShortsResult {
   const kwTag = keyword.trim() ? `#${keyword.trim().replace(/[\s,#]+/g, '').slice(0, 15)}` : '';
   const subject = template.subjects.find((s) => s.id === subjectId) || template.subjects[0];
+  const protagonist = getProtagonist(template, protagonistId);
+  const lineKo = protagonist?.lineKo || template.audio.lineKo;
+  const sceneKo = protagonist
+    ? template.fallback.sceneKo.replace(/^크리에이터가/, withSubjectParticle(protagonist.nameKo))
+    : template.fallback.sceneKo;
   return {
     captions: [...template.fallback.captions] as [string, string, string],
-    sceneKo: template.audio.lineKo
-      ? `${template.fallback.sceneKo} (대사: "${template.audio.lineKo}")`
-      : `${template.fallback.sceneKo} (대사 없이 음악·효과음만)`,
-    flowPrompt: buildFlowPrompt(template, subject.id, template.fallback.sceneEn),
-    canvaUrl: subject.canvaUrl || template.canvaUrl,
+    sceneKo: lineKo ? `${sceneKo} (대사: "${lineKo}")` : `${sceneKo} (대사 없이 음악·효과음만)`,
+    flowPrompt: buildFlowPrompt(template, subject.id, template.fallback.sceneEn, protagonist?.id),
+    canvaUrl:
+      (protagonist && subject.canvaUrlByProtagonist?.[protagonist.id]) || subject.canvaUrl || template.canvaUrl,
     hashtags: [...template.hashtags, ...(kwTag ? [kwTag] : [])],
     mode: 'fallback',
   };

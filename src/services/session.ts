@@ -10,6 +10,7 @@ const SESSION_KEY = 'daegu_shorts_session_v2';
 export interface SavedState {
   step: AppStep;
   templateId: TemplateId | null;
+  protagonistId?: string | null;
   subjectId: string | null;
   moodId: MoodId;
   keyword: string;

@@ -8,16 +8,21 @@ import { BottomBar, Chip, PrimaryButton, SectionTitle, TemplateThumb } from './u
 
 interface Props {
   templateId: TemplateId | null;
+  protagonistId: string | null;
   subjectId: string | null;
   moodId: MoodId;
   keyword: string;
   remaining: number | null;
-  onChange: (patch: { templateId?: TemplateId; subjectId?: string | null; moodId?: MoodId; keyword?: string }) => void;
+  onChange: (patch: {
+    templateId?: TemplateId;
+    protagonistId?: string | null;
+    subjectId?: string | null; moodId?: MoodId; keyword?: string }) => void;
   onGenerated: (result: ShortsResult, remaining: number | null, notice: string | null) => void;
 }
 
 export const MakeScreen: React.FC<Props> = ({
   templateId,
+  protagonistId,
   subjectId,
   moodId,
   keyword,
@@ -28,17 +33,25 @@ export const MakeScreen: React.FC<Props> = ({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const template = getTemplate(templateId || undefined);
-  const ready = !!template && !!subjectId;
+  const needsProtagonist = !!template?.protagonists?.length;
+  const ready = !!template && !!subjectId && (!needsProtagonist || !!protagonistId);
 
   const generate = async () => {
-    if (!template || !subjectId) return;
+    if (!template || !subjectId || !ready) return;
     setLoading(true);
     setError(null);
     try {
       const res = await fetch('/api/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ sessionId: getSessionId(), templateId: template.id, subjectId, moodId, keyword: keyword.trim() }),
+        body: JSON.stringify({
+          sessionId: getSessionId(),
+          templateId: template.id,
+          protagonistId,
+          subjectId,
+          moodId,
+          keyword: keyword.trim(),
+        }),
       });
       if (res.status === 429) {
         const body = (await res.json().catch(() => ({}))) as GenerateResponse;
@@ -53,7 +66,7 @@ export const MakeScreen: React.FC<Props> = ({
       throw new Error(body.error || 'BAD_RESPONSE');
     } catch {
       // 서버에 닿지 않아도 체험은 이어갑니다
-      onGenerated(buildFallbackResult(template, subjectId, keyword), remaining, '인터넷 연결이 불안정해 준비된 문구로 보여드려요.');
+      onGenerated(buildFallbackResult(template, subjectId, keyword, protagonistId), remaining, '인터넷 연결이 불안정해 준비된 문구로 보여드려요.');
     } finally {
       setLoading(false);
     }
@@ -73,7 +86,9 @@ export const MakeScreen: React.FC<Props> = ({
               type="button"
               role="radio"
               aria-checked={selected}
-              onClick={() => onChange({ templateId: t.id, subjectId: t.id === templateId ? subjectId : null })}
+              onClick={() =>
+                t.id !== templateId && onChange({ templateId: t.id, protagonistId: null, subjectId: null })
+              }
               className="text-left"
             >
               <div
@@ -97,6 +112,19 @@ export const MakeScreen: React.FC<Props> = ({
 
       {template && (
         <div key={template.id} className="rise mt-10 space-y-8">
+          {template.protagonists && (
+            <section>
+              <SectionTitle>{template.protagonistQuestion || '주인공은?'}</SectionTitle>
+              <div className="flex flex-wrap gap-2">
+                {template.protagonists.map((p) => (
+                  <Chip key={p.id} selected={p.id === protagonistId} onClick={() => onChange({ protagonistId: p.id })}>
+                    {p.label}
+                  </Chip>
+                ))}
+              </div>
+            </section>
+          )}
+
           <section>
             <SectionTitle>{template.subjectQuestion}</SectionTitle>
             <div className="flex flex-wrap gap-2">
@@ -143,6 +171,8 @@ export const MakeScreen: React.FC<Props> = ({
             </>
           ) : !template ? (
             '템플릿을 골라 주세요'
+          ) : needsProtagonist && !protagonistId ? (
+            '주인공을 골라 주세요'
           ) : !subjectId ? (
             template.subjectRole === 'theme' ? '방송 주제를 골라 주세요' : '주인공을 골라 주세요'
           ) : (

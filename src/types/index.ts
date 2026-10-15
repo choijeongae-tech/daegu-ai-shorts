@@ -31,6 +31,20 @@ export interface SubjectOption {
    * 비워 두면 템플릿 기본 링크(ShortsTemplate.canvaUrl)가 열립니다.
    */
   canvaUrl: string;
+  /** 주인공을 고르는 템플릿에서, 주인공별 캔바 링크 (예: { male: '…', female: '…' }) */
+  canvaUrlByProtagonist?: Record<string, string>;
+}
+
+/** 주인공을 바꿀 수 있는 템플릿의 주인공 선택지 (예: 남성 준호 / 여성 하은) */
+export interface ProtagonistOption {
+  id: string;
+  label: string;
+  /** 캐릭터 이름 (자막·대사에 쓰임) */
+  nameKo: string;
+  /** Flow 프롬프트의 주인공 묘사 */
+  en: string;
+  /** 이 주인공이 말할 한국어 대사 */
+  lineKo: string;
 }
 
 export interface ShortsTemplate {
@@ -44,7 +58,9 @@ export interface ShortsTemplate {
   subjectQuestion: string;
   /** character: 선택지가 곧 주인공 / theme: 주인공은 고정(protagonistEn), 선택지는 방송 주제 */
   subjectRole: 'character' | 'theme';
-  protagonistEn?: string;
+  /** subjectRole이 theme일 때 고를 수 있는 주인공 (첫 번째가 기본값) */
+  protagonists?: ProtagonistOption[];
+  protagonistQuestion?: string;
   subjects: SubjectOption[];
   keywordPlaceholder: string;
   /** Flow 영상의 화면 스타일 (영문) */
@@ -90,6 +106,7 @@ export interface ShortsResult {
 export interface GenerateRequest {
   sessionId: string;
   templateId: TemplateId;
+  protagonistId?: string;
   subjectId: string;
   moodId: MoodId;
   keyword: string;
