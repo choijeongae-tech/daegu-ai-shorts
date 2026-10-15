@@ -12,7 +12,7 @@
 | ☐ | 반려동물 크리에이터 | 토끼 | pet-creator_rabbit.mp4 | `pet-creator` → `rabbit` |
 | ☐ | 크리에이터 준호 | 게임 방송 | creator-junho_game.mp4 | `creator-junho` → `game` |
 | ☐ | 크리에이터 준호 | 먹방 | creator-junho_mukbang.mp4 | `creator-junho` → `mukbang` |
-| ☐ | 크리에이터 준호 | 대구 여행 | creator-junho_travel.mp4 | `creator-junho` → `travel` |
+| ☐ | 크리에이터 준호 | 여행 브이로그 | creator-junho_travel.mp4 | `creator-junho` → `travel` |
 | ☐ | 크리에이터 준호 | 노래 커버 | creator-junho_music.mp4 | `creator-junho` → `music` |
 | ☐ | 레트로 아케이드 게임 | 고양이 기사 | retro-arcade_cat-knight.mp4 | `retro-arcade` → `cat-knight` |
 | ☐ | 레트로 아케이드 게임 | 로봇 히어로 | retro-arcade_robot.mp4 | `retro-arcade` → `robot` |
@@ -71,10 +71,10 @@ Vertical 9:16 video. Modern broadcast studio in a community media center, a red 
 Vertical 9:16 video. Modern broadcast studio in a community media center, a red ON AIR light glowing, colorful LED panels, crisp cinematic lighting. Main character: Junho, a friendly Korean man in his early 20s with short black hair, wearing a casual hoodie. The video is a mukbang, tasting spicy tteokbokki and Korean street food at the desk. He sits down at the desk, puts on headphones, smiles at the camera as the ON AIR light turns on behind him, then waves to the viewers. Smooth dolly-in. Audio: the person on screen says in Korean, "안녕하세요, 크리에이터 준호입니다! 오늘 첫 방송 시작할게요!" Spoken language is Korean only, natural native Korean pronunciation; no English speech, no narration. Background: light upbeat studio background music. No on-screen text, no subtitles, no logos.
 ```
 
-### 대구 여행  (`creator-junho_travel.mp4`)
+### 여행 브이로그  (`creator-junho_travel.mp4`)
 
 ```
-Vertical 9:16 video. Modern broadcast studio in a community media center, a red ON AIR light glowing, colorful LED panels, crisp cinematic lighting. Main character: Junho, a friendly Korean man in his early 20s with short black hair, wearing a casual hoodie. The video is a Daegu travel vlog, showing a small camera and a city map. He sits down at the desk, puts on headphones, smiles at the camera as the ON AIR light turns on behind him, then waves to the viewers. Smooth dolly-in. Audio: the person on screen says in Korean, "안녕하세요, 크리에이터 준호입니다! 오늘 첫 방송 시작할게요!" Spoken language is Korean only, natural native Korean pronunciation; no English speech, no narration. Background: light upbeat studio background music. No on-screen text, no subtitles, no logos.
+Vertical 9:16 video. Modern broadcast studio in a community media center, a red ON AIR light glowing, colorful LED panels, crisp cinematic lighting. Main character: Junho, a friendly Korean man in his early 20s with short black hair, wearing a casual hoodie. The video is a travel vlog show, holding a small camera and a paper map, with colorful travel photos pinned on the wall behind him. He sits down at the desk, puts on headphones, smiles at the camera as the ON AIR light turns on behind him, then waves to the viewers. Smooth dolly-in. Audio: the person on screen says in Korean, "안녕하세요, 크리에이터 준호입니다! 오늘 첫 방송 시작할게요!" Spoken language is Korean only, natural native Korean pronunciation; no English speech, no narration. Background: light upbeat studio background music. No on-screen text, no subtitles, no logos.
 ```
 
 ### 노래 커버  (`creator-junho_music.mp4`)
@@ -122,23 +122,23 @@ Vertical 9:16 video. 16-bit retro pixel art video game, side-scrolling arcade st
 ### 20대 청년  (`fair-review_twenties.mp4`)
 
 ```
-Vertical 9:16 video. Bright documentary-style event vlog inside a large modern exhibition hall in Daegu, South Korea, colorful booths, lively crowd, handheld gimbal shot. Main character: a Korean woman in her 20s holding a small camera. They walk through the hall looking around excitedly, stop at a booth to try a hands-on experience, then turn to the camera with a big thumbs up. Gimbal tracking shot. Audio: the person on screen says in Korean, "와, 대구 콘텐츠페어 진짜 재밌다!" Spoken language is Korean only, natural native Korean pronunciation; no English speech, no narration. Background: lively exhibition hall ambience and upbeat background music. No on-screen text, no subtitles, no logos.
+Vertical 9:16 video. Bright, cheerful vlog-style video inside a large modern convention hall at a fictional content festival, colorful creative booths, friendly crowd, handheld gimbal shot. Main character: a Korean woman in her 20s holding a small camera. They walk through the hall looking around excitedly, stop at a booth to try a hands-on experience, then turn to the camera with a big thumbs up. Gimbal tracking shot. Audio: the person on screen says in Korean, "와, 대구 콘텐츠페어 진짜 재밌다!" Spoken language is Korean only, natural native Korean pronunciation; no English speech, no narration. Background: lively exhibition hall ambience and upbeat background music. No on-screen text, no subtitles, no logos.
 ```
 
 ### 10대 학생  (`fair-review_student.mp4`)
 
 ```
-Vertical 9:16 video. Bright documentary-style event vlog inside a large modern exhibition hall in Daegu, South Korea, colorful booths, lively crowd, handheld gimbal shot. Main character: a cheerful Korean teenage student in a hoodie. They walk through the hall looking around excitedly, stop at a booth to try a hands-on experience, then turn to the camera with a big thumbs up. Gimbal tracking shot. Audio: the person on screen says in Korean, "와, 대구 콘텐츠페어 진짜 재밌다!" Spoken language is Korean only, natural native Korean pronunciation; no English speech, no narration. Background: lively exhibition hall ambience and upbeat background music. No on-screen text, no subtitles, no logos.
+Vertical 9:16 video. Bright, cheerful vlog-style video inside a large modern convention hall at a fictional content festival, colorful creative booths, friendly crowd, handheld gimbal shot. Main character: a cheerful Korean teenage student in a hoodie. They walk through the hall looking around excitedly, stop at a booth to try a hands-on experience, then turn to the camera with a big thumbs up. Gimbal tracking shot. Audio: the person on screen says in Korean, "와, 대구 콘텐츠페어 진짜 재밌다!" Spoken language is Korean only, natural native Korean pronunciation; no English speech, no narration. Background: lively exhibition hall ambience and upbeat background music. No on-screen text, no subtitles, no logos.
 ```
 
 ### 친구 둘  (`fair-review_friends.mp4`)
 
 ```
-Vertical 9:16 video. Bright documentary-style event vlog inside a large modern exhibition hall in Daegu, South Korea, colorful booths, lively crowd, handheld gimbal shot. Main character: two Korean friends in their 20s. They walk through the hall looking around excitedly, stop at a booth to try a hands-on experience, then turn to the camera with a big thumbs up. Gimbal tracking shot. Audio: the person on screen says in Korean, "와, 대구 콘텐츠페어 진짜 재밌다!" Spoken language is Korean only, natural native Korean pronunciation; no English speech, no narration. Background: lively exhibition hall ambience and upbeat background music. No on-screen text, no subtitles, no logos.
+Vertical 9:16 video. Bright, cheerful vlog-style video inside a large modern convention hall at a fictional content festival, colorful creative booths, friendly crowd, handheld gimbal shot. Main character: two Korean friends in their 20s. They walk through the hall looking around excitedly, stop at a booth to try a hands-on experience, then turn to the camera with a big thumbs up. Gimbal tracking shot. Audio: the person on screen says in Korean, "와, 대구 콘텐츠페어 진짜 재밌다!" Spoken language is Korean only, natural native Korean pronunciation; no English speech, no narration. Background: lively exhibition hall ambience and upbeat background music. No on-screen text, no subtitles, no logos.
 ```
 
 ### 가족  (`fair-review_family.mp4`)
 
 ```
-Vertical 9:16 video. Bright documentary-style event vlog inside a large modern exhibition hall in Daegu, South Korea, colorful booths, lively crowd, handheld gimbal shot. Main character: a Korean family of three. They walk through the hall looking around excitedly, stop at a booth to try a hands-on experience, then turn to the camera with a big thumbs up. Gimbal tracking shot. Audio: the person on screen says in Korean, "와, 대구 콘텐츠페어 진짜 재밌다!" Spoken language is Korean only, natural native Korean pronunciation; no English speech, no narration. Background: lively exhibition hall ambience and upbeat background music. No on-screen text, no subtitles, no logos.
+Vertical 9:16 video. Bright, cheerful vlog-style video inside a large modern convention hall at a fictional content festival, colorful creative booths, friendly crowd, handheld gimbal shot. Main character: a Korean family of three. They walk through the hall looking around excitedly, stop at a booth to try a hands-on experience, then turn to the camera with a big thumbs up. Gimbal tracking shot. Audio: the person on screen says in Korean, "와, 대구 콘텐츠페어 진짜 재밌다!" Spoken language is Korean only, natural native Korean pronunciation; no English speech, no narration. Background: lively exhibition hall ambience and upbeat background music. No on-screen text, no subtitles, no logos.
 ```

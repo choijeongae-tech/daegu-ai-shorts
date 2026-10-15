@@ -10,6 +10,9 @@
  *   파일이 없으면 색 배경 썸네일이 자동으로 보입니다.
  * - '크리에이터 준호'의 생김새(protagonistEn)는 캔바 템플릿 속 준호와 비슷하게 고쳐 주세요.
  *
+ * ※ Flow 영상 프롬프트(en, styleEn, sceneEn)에는 실제 지명·기관명·행사명을 넣지 마세요.
+ *   실존 장소를 사실처럼 보여 주는 영상은 Flow가 거부할 수 있어요. (자막을 쓰는 briefKo에는 괜찮습니다)
+ *
  * ※ 서버가 이 파일을 직접 불러오므로 타입은 반드시 `import type`으로만 가져옵니다.
  */
 import type { ShortsTemplate, MoodInfo, TemplateId, MoodId, ShortsResult } from '../types';
@@ -56,7 +59,7 @@ export const TEMPLATES: ShortsTemplate[] = [
     subjects: [
       { id: 'game', label: '게임 방송', en: 'a live game stream, wearing a gaming headset with a controller in hand', canvaUrl: '' },
       { id: 'mukbang', label: '먹방', en: 'a mukbang, tasting spicy tteokbokki and Korean street food at the desk', canvaUrl: '' },
-      { id: 'travel', label: '대구 여행', en: 'a Daegu travel vlog, showing a small camera and a city map', canvaUrl: '' },
+      { id: 'travel', label: '여행 브이로그', en: 'a travel vlog show, holding a small camera and a paper map, with colorful travel photos pinned on the wall behind him', canvaUrl: '' },
       { id: 'music', label: '노래 커버', en: 'a music show, standing at a studio microphone with a guitar', canvaUrl: '' },
     ],
     keywordPlaceholder: '예: 채널 이름, 첫 인사말',
@@ -119,7 +122,7 @@ export const TEMPLATES: ShortsTemplate[] = [
     ],
     keywordPlaceholder: '예: 가장 재밌었던 부스, VR 체험',
     styleEn:
-      'Bright documentary-style event vlog inside a large modern exhibition hall in Daegu, South Korea, colorful booths, lively crowd, handheld gimbal shot',
+      'Bright, cheerful vlog-style video inside a large modern convention hall at a fictional content festival, colorful creative booths, friendly crowd, handheld gimbal shot',
     briefKo: '2026 대구 콘텐츠페어에 다녀온 관람객의 방문 후기 쇼츠',
     audio: {
       lineKo: '와, 대구 콘텐츠페어 진짜 재밌다!',
