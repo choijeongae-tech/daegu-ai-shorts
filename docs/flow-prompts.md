@@ -10,14 +10,14 @@
 | ☐ | 반려동물 크리에이터 | 고양이 | pet-creator_cat.mp4 | `pet-creator` → `cat` → canvaUrl |
 | ☐ | 반려동물 크리에이터 | 햄스터 | pet-creator_hamster.mp4 | `pet-creator` → `hamster` → canvaUrl |
 | ☐ | 반려동물 크리에이터 | 토끼 | pet-creator_rabbit.mp4 | `pet-creator` → `rabbit` → canvaUrl |
-| ☐ | 크리에이터 첫 방송 | 남성 · 준호 / 게임 방송 | creator-junho_male_game.mp4 | `creator-junho` → `game` → canvaUrlByProtagonist.male |
-| ☐ | 크리에이터 첫 방송 | 남성 · 준호 / 먹방 | creator-junho_male_mukbang.mp4 | `creator-junho` → `mukbang` → canvaUrlByProtagonist.male |
-| ☐ | 크리에이터 첫 방송 | 남성 · 준호 / 여행 브이로그 | creator-junho_male_travel.mp4 | `creator-junho` → `travel` → canvaUrlByProtagonist.male |
-| ☐ | 크리에이터 첫 방송 | 남성 · 준호 / 음악 방송 | creator-junho_male_music.mp4 | `creator-junho` → `music` → canvaUrlByProtagonist.male |
-| ☐ | 크리에이터 첫 방송 | 여성 · 하은 / 게임 방송 | creator-junho_female_game.mp4 | `creator-junho` → `game` → canvaUrlByProtagonist.female |
-| ☐ | 크리에이터 첫 방송 | 여성 · 하은 / 먹방 | creator-junho_female_mukbang.mp4 | `creator-junho` → `mukbang` → canvaUrlByProtagonist.female |
-| ☐ | 크리에이터 첫 방송 | 여성 · 하은 / 여행 브이로그 | creator-junho_female_travel.mp4 | `creator-junho` → `travel` → canvaUrlByProtagonist.female |
-| ☐ | 크리에이터 첫 방송 | 여성 · 하은 / 음악 방송 | creator-junho_female_music.mp4 | `creator-junho` → `music` → canvaUrlByProtagonist.female |
+| ☐ | 크리에이터 첫 방송 | 남성 · 준호 / 게임 방송 | creator-junho_male_game.mp4 | `creator-junho` → `game` → canvaUrl (주인공 공통) |
+| ☐ | 크리에이터 첫 방송 | 남성 · 준호 / 먹방 | creator-junho_male_mukbang.mp4 | `creator-junho` → `mukbang` → canvaUrl (주인공 공통) |
+| ☐ | 크리에이터 첫 방송 | 남성 · 준호 / 여행 브이로그 | creator-junho_male_travel.mp4 | `creator-junho` → `travel` → canvaUrl (주인공 공통) |
+| ☐ | 크리에이터 첫 방송 | 남성 · 준호 / 음악 방송 | creator-junho_male_music.mp4 | `creator-junho` → `music` → canvaUrl (주인공 공통) |
+| ☐ | 크리에이터 첫 방송 | 여성 · 하은 / 게임 방송 | creator-junho_female_game.mp4 | `creator-junho` → `game` → canvaUrl (주인공 공통) |
+| ☐ | 크리에이터 첫 방송 | 여성 · 하은 / 먹방 | creator-junho_female_mukbang.mp4 | `creator-junho` → `mukbang` → canvaUrl (주인공 공통) |
+| ☐ | 크리에이터 첫 방송 | 여성 · 하은 / 여행 브이로그 | creator-junho_female_travel.mp4 | `creator-junho` → `travel` → canvaUrl (주인공 공통) |
+| ☐ | 크리에이터 첫 방송 | 여성 · 하은 / 음악 방송 | creator-junho_female_music.mp4 | `creator-junho` → `music` → canvaUrl (주인공 공통) |
 | ☐ | 레트로 아케이드 게임 | 고양이 기사 | retro-arcade_cat-knight.mp4 | `retro-arcade` → `cat-knight` → canvaUrl |
 | ☐ | 레트로 아케이드 게임 | 로봇 히어로 | retro-arcade_robot.mp4 | `retro-arcade` → `robot` → canvaUrl |
 | ☐ | 레트로 아케이드 게임 | 우주 탐험가 | retro-arcade_astronaut.mp4 | `retro-arcade` → `astronaut` → canvaUrl |
@@ -61,54 +61,78 @@ Vertical 9:16 video. Bright and cozy home vlog look, soft natural window light, 
 
 장면: 크리에이터가 책상에 앉아 헤드폰을 쓰고, 뒤에 ON AIR 불이 켜지자 카메라에 손을 흔드는 장면
 
-소리: 남성 · 준호 한국어 대사 "안녕하세요, 크리에이터 준호입니다! 오늘 첫 방송 시작할게요!" / 여성 · 하은 한국어 대사 "안녕하세요, 크리에이터 하은입니다! 오늘 첫 방송 시작할게요!"
+소리: 주인공·주제마다 다른 한국어 대사 (아래 각 프롬프트 참고)
 
 ### 남성 · 준호 · 게임 방송  (`creator-junho_male_game.mp4`)
 
+- 대사: 안녕하세요, 준호입니다! 첫 게임 방송 시작할게요!
+- 기본 자막: 신인 크리에이터 준호, 첫 방송 ON! / 오늘은 내가 좋아하는 게임 이야기 / 구독하고 다음 판도 같이 해요!
+
 ```
-Vertical 9:16 video. Modern broadcast studio in a community media center, a red ON AIR light glowing, colorful LED panels, crisp cinematic lighting. Main character: Junho, a friendly Korean man in his early 20s with short black hair, wearing a casual hoodie. The video is a live game stream, wearing a gaming headset with a controller in hand. The creator sits down at the desk, puts on headphones, smiles at the camera as the ON AIR light turns on in the background, then waves to the viewers. Smooth dolly-in. Audio: the person on screen says in Korean, "안녕하세요, 크리에이터 준호입니다! 오늘 첫 방송 시작할게요!" Spoken language is Korean only, natural native Korean pronunciation; no English speech, no narration. Background: light upbeat studio background music. No on-screen text, no subtitles, no logos.
+Vertical 9:16 video. Modern broadcast studio in a community media center, a red ON AIR light glowing, colorful LED panels, crisp cinematic lighting. Main character: Junho, a friendly Korean man in his early 20s with short black hair, wearing a casual hoodie. The video is a live game stream, wearing a gaming headset with a controller in hand. The creator sits down at the desk, puts on headphones, smiles at the camera as the ON AIR light turns on in the background, then waves to the viewers. Smooth dolly-in. Audio: the person on screen says in Korean, "안녕하세요, 준호입니다! 첫 게임 방송 시작할게요!" Spoken language is Korean only, natural native Korean pronunciation; no English speech, no narration. Background: light upbeat studio background music. No on-screen text, no subtitles, no logos.
 ```
 
 ### 남성 · 준호 · 먹방  (`creator-junho_male_mukbang.mp4`)
 
+- 대사: 안녕하세요, 준호입니다! 오늘은 떡볶이 먹방이에요!
+- 기본 자막: 준호의 첫 먹방, 지금 시작! / 매콤한 떡볶이 한 입에 텐션 업 / 맛있게 먹는 것도 콘텐츠예요!
+
 ```
-Vertical 9:16 video. Modern broadcast studio in a community media center, a red ON AIR light glowing, colorful LED panels, crisp cinematic lighting. Main character: Junho, a friendly Korean man in his early 20s with short black hair, wearing a casual hoodie. The video is a mukbang, tasting spicy tteokbokki and Korean street food at the desk. The creator sits down at the desk, puts on headphones, smiles at the camera as the ON AIR light turns on in the background, then waves to the viewers. Smooth dolly-in. Audio: the person on screen says in Korean, "안녕하세요, 크리에이터 준호입니다! 오늘 첫 방송 시작할게요!" Spoken language is Korean only, natural native Korean pronunciation; no English speech, no narration. Background: light upbeat studio background music. No on-screen text, no subtitles, no logos.
+Vertical 9:16 video. Modern broadcast studio in a community media center, a red ON AIR light glowing, colorful LED panels, crisp cinematic lighting. Main character: Junho, a friendly Korean man in his early 20s with short black hair, wearing a casual hoodie. The video is a mukbang, tasting spicy tteokbokki and Korean street food at the desk. The creator sits down at the desk, puts on headphones, smiles at the camera as the ON AIR light turns on in the background, then waves to the viewers. Smooth dolly-in. Audio: the person on screen says in Korean, "안녕하세요, 준호입니다! 오늘은 떡볶이 먹방이에요!" Spoken language is Korean only, natural native Korean pronunciation; no English speech, no narration. Background: light upbeat studio background music. No on-screen text, no subtitles, no logos.
 ```
 
 ### 남성 · 준호 · 여행 브이로그  (`creator-junho_male_travel.mp4`)
 
+- 대사: 안녕하세요, 준호입니다! 첫 여행 이야기 들려드릴게요!
+- 기본 자막: 준호의 여행 채널 첫 방송! / 지도 한 장, 카메라 하나면 준비 끝 / 다음 여행지는 댓글로 알려 주세요!
+
 ```
-Vertical 9:16 video. Modern broadcast studio in a community media center, a red ON AIR light glowing, colorful LED panels, crisp cinematic lighting. Main character: Junho, a friendly Korean man in his early 20s with short black hair, wearing a casual hoodie. The video is a travel vlog show, holding a small camera and a paper map, with colorful travel photos pinned on the wall. The creator sits down at the desk, puts on headphones, smiles at the camera as the ON AIR light turns on in the background, then waves to the viewers. Smooth dolly-in. Audio: the person on screen says in Korean, "안녕하세요, 크리에이터 준호입니다! 오늘 첫 방송 시작할게요!" Spoken language is Korean only, natural native Korean pronunciation; no English speech, no narration. Background: light upbeat studio background music. No on-screen text, no subtitles, no logos.
+Vertical 9:16 video. Modern broadcast studio in a community media center, a red ON AIR light glowing, colorful LED panels, crisp cinematic lighting. Main character: Junho, a friendly Korean man in his early 20s with short black hair, wearing a casual hoodie. The video is a travel vlog show, holding a small camera and a paper map, with colorful travel photos pinned on the wall. The creator sits down at the desk, puts on headphones, smiles at the camera as the ON AIR light turns on in the background, then waves to the viewers. Smooth dolly-in. Audio: the person on screen says in Korean, "안녕하세요, 준호입니다! 첫 여행 이야기 들려드릴게요!" Spoken language is Korean only, natural native Korean pronunciation; no English speech, no narration. Background: light upbeat studio background music. No on-screen text, no subtitles, no logos.
 ```
 
 ### 남성 · 준호 · 음악 방송  (`creator-junho_male_music.mp4`)
 
+- 대사: 안녕하세요, 준호입니다! 첫 음악 방송 시작할게요!
+- 기본 자막: 준호의 첫 음악 방송, ON AIR! / 좋아하는 음악을 나누는 시간 / 다음 곡 신청은 댓글로 받아요!
+
 ```
-Vertical 9:16 video. Modern broadcast studio in a community media center, a red ON AIR light glowing, colorful LED panels, crisp cinematic lighting. Main character: Junho, a friendly Korean man in his early 20s with short black hair, wearing a casual hoodie. The video is a music show, standing at a studio microphone with a guitar. The creator sits down at the desk, puts on headphones, smiles at the camera as the ON AIR light turns on in the background, then waves to the viewers. Smooth dolly-in. Audio: the person on screen says in Korean, "안녕하세요, 크리에이터 준호입니다! 오늘 첫 방송 시작할게요!" Spoken language is Korean only, natural native Korean pronunciation; no English speech, no narration. Background: light upbeat studio background music. No on-screen text, no subtitles, no logos.
+Vertical 9:16 video. Modern broadcast studio in a community media center, a red ON AIR light glowing, colorful LED panels, crisp cinematic lighting. Main character: Junho, a friendly Korean man in his early 20s with short black hair, wearing a casual hoodie. The video is a music show, standing at a studio microphone with a guitar. The creator sits down at the desk, puts on headphones, smiles at the camera as the ON AIR light turns on in the background, then waves to the viewers. Smooth dolly-in. Audio: the person on screen says in Korean, "안녕하세요, 준호입니다! 첫 음악 방송 시작할게요!" Spoken language is Korean only, natural native Korean pronunciation; no English speech, no narration. Background: light upbeat studio background music. No on-screen text, no subtitles, no logos.
 ```
 
 ### 여성 · 하은 · 게임 방송  (`creator-junho_female_game.mp4`)
 
+- 대사: 안녕하세요, 하은입니다! 첫 게임 방송 시작할게요!
+- 기본 자막: 신인 크리에이터 하은, 첫 방송 ON! / 오늘은 내가 좋아하는 게임 이야기 / 구독하고 다음 판도 같이 해요!
+
 ```
-Vertical 9:16 video. Modern broadcast studio in a community media center, a red ON AIR light glowing, colorful LED panels, crisp cinematic lighting. Main character: Haeun, a friendly Korean woman in her early 20s with shoulder-length black hair, wearing a casual hoodie. The video is a live game stream, wearing a gaming headset with a controller in hand. The creator sits down at the desk, puts on headphones, smiles at the camera as the ON AIR light turns on in the background, then waves to the viewers. Smooth dolly-in. Audio: the person on screen says in Korean, "안녕하세요, 크리에이터 하은입니다! 오늘 첫 방송 시작할게요!" Spoken language is Korean only, natural native Korean pronunciation; no English speech, no narration. Background: light upbeat studio background music. No on-screen text, no subtitles, no logos.
+Vertical 9:16 video. Modern broadcast studio in a community media center, a red ON AIR light glowing, colorful LED panels, crisp cinematic lighting. Main character: Haeun, a friendly Korean woman in her early 20s with shoulder-length black hair, wearing a casual hoodie. The video is a live game stream, wearing a gaming headset with a controller in hand. The creator sits down at the desk, puts on headphones, smiles at the camera as the ON AIR light turns on in the background, then waves to the viewers. Smooth dolly-in. Audio: the person on screen says in Korean, "안녕하세요, 하은입니다! 첫 게임 방송 시작할게요!" Spoken language is Korean only, natural native Korean pronunciation; no English speech, no narration. Background: light upbeat studio background music. No on-screen text, no subtitles, no logos.
 ```
 
 ### 여성 · 하은 · 먹방  (`creator-junho_female_mukbang.mp4`)
 
+- 대사: 안녕하세요, 하은입니다! 오늘은 떡볶이 먹방이에요!
+- 기본 자막: 하은의 첫 먹방, 지금 시작! / 매콤한 떡볶이 한 입에 텐션 업 / 맛있게 먹는 것도 콘텐츠예요!
+
 ```
-Vertical 9:16 video. Modern broadcast studio in a community media center, a red ON AIR light glowing, colorful LED panels, crisp cinematic lighting. Main character: Haeun, a friendly Korean woman in her early 20s with shoulder-length black hair, wearing a casual hoodie. The video is a mukbang, tasting spicy tteokbokki and Korean street food at the desk. The creator sits down at the desk, puts on headphones, smiles at the camera as the ON AIR light turns on in the background, then waves to the viewers. Smooth dolly-in. Audio: the person on screen says in Korean, "안녕하세요, 크리에이터 하은입니다! 오늘 첫 방송 시작할게요!" Spoken language is Korean only, natural native Korean pronunciation; no English speech, no narration. Background: light upbeat studio background music. No on-screen text, no subtitles, no logos.
+Vertical 9:16 video. Modern broadcast studio in a community media center, a red ON AIR light glowing, colorful LED panels, crisp cinematic lighting. Main character: Haeun, a friendly Korean woman in her early 20s with shoulder-length black hair, wearing a casual hoodie. The video is a mukbang, tasting spicy tteokbokki and Korean street food at the desk. The creator sits down at the desk, puts on headphones, smiles at the camera as the ON AIR light turns on in the background, then waves to the viewers. Smooth dolly-in. Audio: the person on screen says in Korean, "안녕하세요, 하은입니다! 오늘은 떡볶이 먹방이에요!" Spoken language is Korean only, natural native Korean pronunciation; no English speech, no narration. Background: light upbeat studio background music. No on-screen text, no subtitles, no logos.
 ```
 
 ### 여성 · 하은 · 여행 브이로그  (`creator-junho_female_travel.mp4`)
 
+- 대사: 안녕하세요, 하은입니다! 첫 여행 이야기 들려드릴게요!
+- 기본 자막: 하은의 여행 채널 첫 방송! / 지도 한 장, 카메라 하나면 준비 끝 / 다음 여행지는 댓글로 알려 주세요!
+
 ```
-Vertical 9:16 video. Modern broadcast studio in a community media center, a red ON AIR light glowing, colorful LED panels, crisp cinematic lighting. Main character: Haeun, a friendly Korean woman in her early 20s with shoulder-length black hair, wearing a casual hoodie. The video is a travel vlog show, holding a small camera and a paper map, with colorful travel photos pinned on the wall. The creator sits down at the desk, puts on headphones, smiles at the camera as the ON AIR light turns on in the background, then waves to the viewers. Smooth dolly-in. Audio: the person on screen says in Korean, "안녕하세요, 크리에이터 하은입니다! 오늘 첫 방송 시작할게요!" Spoken language is Korean only, natural native Korean pronunciation; no English speech, no narration. Background: light upbeat studio background music. No on-screen text, no subtitles, no logos.
+Vertical 9:16 video. Modern broadcast studio in a community media center, a red ON AIR light glowing, colorful LED panels, crisp cinematic lighting. Main character: Haeun, a friendly Korean woman in her early 20s with shoulder-length black hair, wearing a casual hoodie. The video is a travel vlog show, holding a small camera and a paper map, with colorful travel photos pinned on the wall. The creator sits down at the desk, puts on headphones, smiles at the camera as the ON AIR light turns on in the background, then waves to the viewers. Smooth dolly-in. Audio: the person on screen says in Korean, "안녕하세요, 하은입니다! 첫 여행 이야기 들려드릴게요!" Spoken language is Korean only, natural native Korean pronunciation; no English speech, no narration. Background: light upbeat studio background music. No on-screen text, no subtitles, no logos.
 ```
 
 ### 여성 · 하은 · 음악 방송  (`creator-junho_female_music.mp4`)
 
+- 대사: 안녕하세요, 하은입니다! 첫 음악 방송 시작할게요!
+- 기본 자막: 하은의 첫 음악 방송, ON AIR! / 좋아하는 음악을 나누는 시간 / 다음 곡 신청은 댓글로 받아요!
+
 ```
-Vertical 9:16 video. Modern broadcast studio in a community media center, a red ON AIR light glowing, colorful LED panels, crisp cinematic lighting. Main character: Haeun, a friendly Korean woman in her early 20s with shoulder-length black hair, wearing a casual hoodie. The video is a music show, standing at a studio microphone with a guitar. The creator sits down at the desk, puts on headphones, smiles at the camera as the ON AIR light turns on in the background, then waves to the viewers. Smooth dolly-in. Audio: the person on screen says in Korean, "안녕하세요, 크리에이터 하은입니다! 오늘 첫 방송 시작할게요!" Spoken language is Korean only, natural native Korean pronunciation; no English speech, no narration. Background: light upbeat studio background music. No on-screen text, no subtitles, no logos.
+Vertical 9:16 video. Modern broadcast studio in a community media center, a red ON AIR light glowing, colorful LED panels, crisp cinematic lighting. Main character: Haeun, a friendly Korean woman in her early 20s with shoulder-length black hair, wearing a casual hoodie. The video is a music show, standing at a studio microphone with a guitar. The creator sits down at the desk, puts on headphones, smiles at the camera as the ON AIR light turns on in the background, then waves to the viewers. Smooth dolly-in. Audio: the person on screen says in Korean, "안녕하세요, 하은입니다! 첫 음악 방송 시작할게요!" Spoken language is Korean only, natural native Korean pronunciation; no English speech, no narration. Background: light upbeat studio background music. No on-screen text, no subtitles, no logos.
 ```
 
 ## 레트로 아케이드 게임
@@ -149,11 +173,15 @@ Vertical 9:16 video. 16-bit retro pixel art video game, side-scrolling arcade st
 
 ### 20대 청년  (`fair-review_twenties.mp4`)
 
+- 대사: 와, 대구 콘텐츠페어 진짜 재밌다!
+
 ```
 Vertical 9:16 video. Bright, cheerful vlog-style video inside a large modern convention hall at a fictional content festival, colorful creative booths, friendly crowd, handheld gimbal shot. Main character: a Korean woman in her 20s holding a small camera. They walk through the hall looking around excitedly, stop at a booth to try a hands-on experience, then turn to the camera with a big thumbs up. Gimbal tracking shot. Audio: the person on screen says in Korean, "와, 대구 콘텐츠페어 진짜 재밌다!" Spoken language is Korean only, natural native Korean pronunciation; no English speech, no narration. Background: lively exhibition hall ambience and upbeat background music. No on-screen text, no subtitles, no logos.
 ```
 
 ### 10대 학생  (`fair-review_student.mp4`)
+
+- 대사: 와, 대구 콘텐츠페어 진짜 재밌다!
 
 ```
 Vertical 9:16 video. Bright, cheerful vlog-style video inside a large modern convention hall at a fictional content festival, colorful creative booths, friendly crowd, handheld gimbal shot. Main character: a cheerful Korean teenage student in a hoodie. They walk through the hall looking around excitedly, stop at a booth to try a hands-on experience, then turn to the camera with a big thumbs up. Gimbal tracking shot. Audio: the person on screen says in Korean, "와, 대구 콘텐츠페어 진짜 재밌다!" Spoken language is Korean only, natural native Korean pronunciation; no English speech, no narration. Background: lively exhibition hall ambience and upbeat background music. No on-screen text, no subtitles, no logos.
@@ -161,11 +189,15 @@ Vertical 9:16 video. Bright, cheerful vlog-style video inside a large modern con
 
 ### 친구 둘  (`fair-review_friends.mp4`)
 
+- 대사: 와, 대구 콘텐츠페어 진짜 재밌다!
+
 ```
 Vertical 9:16 video. Bright, cheerful vlog-style video inside a large modern convention hall at a fictional content festival, colorful creative booths, friendly crowd, handheld gimbal shot. Main character: two Korean friends in their 20s. They walk through the hall looking around excitedly, stop at a booth to try a hands-on experience, then turn to the camera with a big thumbs up. Gimbal tracking shot. Audio: the person on screen says in Korean, "와, 대구 콘텐츠페어 진짜 재밌다!" Spoken language is Korean only, natural native Korean pronunciation; no English speech, no narration. Background: lively exhibition hall ambience and upbeat background music. No on-screen text, no subtitles, no logos.
 ```
 
 ### 가족  (`fair-review_family.mp4`)
+
+- 대사: 와, 대구 콘텐츠페어 진짜 재밌다!
 
 ```
 Vertical 9:16 video. Bright, cheerful vlog-style video inside a large modern convention hall at a fictional content festival, colorful creative booths, friendly crowd, handheld gimbal shot. Main character: a Korean family of three. They walk through the hall looking around excitedly, stop at a booth to try a hands-on experience, then turn to the camera with a big thumbs up. Gimbal tracking shot. Audio: the person on screen says in Korean, "와, 대구 콘텐츠페어 진짜 재밌다!" Spoken language is Korean only, natural native Korean pronunciation; no English speech, no narration. Background: lively exhibition hall ambience and upbeat background music. No on-screen text, no subtitles, no logos.

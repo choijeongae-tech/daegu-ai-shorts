@@ -72,10 +72,38 @@ export const TEMPLATES: ShortsTemplate[] = [
       },
     ],
     subjects: [
-      { id: 'game', label: '게임 방송', en: 'a live game stream, wearing a gaming headset with a controller in hand', canvaUrl: '', canvaUrlByProtagonist: { male: '', female: '' } },
-      { id: 'mukbang', label: '먹방', en: 'a mukbang, tasting spicy tteokbokki and Korean street food at the desk', canvaUrl: '', canvaUrlByProtagonist: { male: '', female: '' } },
-      { id: 'travel', label: '여행 브이로그', en: 'a travel vlog show, holding a small camera and a paper map, with colorful travel photos pinned on the wall', canvaUrl: '', canvaUrlByProtagonist: { male: '', female: '' } },
-      { id: 'music', label: '음악 방송', en: 'a music show, standing at a studio microphone with a guitar', canvaUrl: '', canvaUrlByProtagonist: { male: '', female: '' } },
+      {
+        id: 'game',
+        label: '게임 방송',
+        en: 'a live game stream, wearing a gaming headset with a controller in hand',
+        canvaUrl: '',
+        lineKo: '안녕하세요, {name}입니다! 첫 게임 방송 시작할게요!',
+        captions: ['신인 크리에이터 {name}, 첫 방송 ON!', '오늘은 내가 좋아하는 게임 이야기', '구독하고 다음 판도 같이 해요!'],
+      },
+      {
+        id: 'mukbang',
+        label: '먹방',
+        en: 'a mukbang, tasting spicy tteokbokki and Korean street food at the desk',
+        canvaUrl: '',
+        lineKo: '안녕하세요, {name}입니다! 오늘은 떡볶이 먹방이에요!',
+        captions: ['{name}의 첫 먹방, 지금 시작!', '매콤한 떡볶이 한 입에 텐션 업', '맛있게 먹는 것도 콘텐츠예요!'],
+      },
+      {
+        id: 'travel',
+        label: '여행 브이로그',
+        en: 'a travel vlog show, holding a small camera and a paper map, with colorful travel photos pinned on the wall',
+        canvaUrl: '',
+        lineKo: '안녕하세요, {name}입니다! 첫 여행 이야기 들려드릴게요!',
+        captions: ['{name}의 여행 채널 첫 방송!', '지도 한 장, 카메라 하나면 준비 끝', '다음 여행지는 댓글로 알려 주세요!'],
+      },
+      {
+        id: 'music',
+        label: '음악 방송',
+        en: 'a music show, standing at a studio microphone with a guitar',
+        canvaUrl: '',
+        lineKo: '안녕하세요, {name}입니다! 첫 음악 방송 시작할게요!',
+        captions: ['{name}의 첫 음악 방송, ON AIR!', '좋아하는 음악을 나누는 시간', '다음 곡 신청은 댓글로 받아요!'],
+      },
     ],
     keywordPlaceholder: '예: 채널 이름, 첫 인사말',
     styleEn:
@@ -174,6 +202,19 @@ export function isTemplateId(id: unknown): id is TemplateId {
   return TEMPLATES.some((t) => t.id === id);
 }
 
+/** 문구 속 {name}을 주인공 이름으로 바꿉니다 */
+export function fillName(text: string, name?: string): string {
+  return text.replace(/\{name\}/g, name || '크리에이터');
+}
+
+/** 이 영상의 한국어 대사 (주제별 → 주인공별 → 템플릿 기본 순) */
+export function getLineKo(template: ShortsTemplate, subjectId: string, protagonistId?: string | null): string | undefined {
+  const subject = template.subjects.find((s) => s.id === subjectId) || template.subjects[0];
+  const protagonist = getProtagonist(template, protagonistId);
+  const raw = subject.lineKo || protagonist?.lineKo || template.audio.lineKo;
+  return raw ? fillName(raw, protagonist?.nameKo) : undefined;
+}
+
 /** 이름 뒤 주격 조사: 받침 있으면 '이', 없으면 '가' (하은이 / 준호가) */
 function withSubjectParticle(name: string): string {
   const code = name.charCodeAt(name.length - 1) - 0xac00;
@@ -203,7 +244,7 @@ export function buildFlowPrompt(
     template.subjectRole === 'theme' && protagonist
       ? `Main character: ${protagonist.en}. The video is ${subject.en}.`
       : `Main character: ${subject.en}.`;
-  const lineKo = protagonist?.lineKo || template.audio.lineKo;
+  const lineKo = getLineKo(template, subject.id, protagonistId);
   const audio = lineKo
     ? `Audio: the person on screen says in Korean, "${lineKo}" Spoken language is Korean only, natural native Korean pronunciation; no English speech, no narration. Background: ${template.audio.soundEn}.`
     : `Audio: no dialogue, no narration, no singing, no voice of any kind. Only ${template.audio.soundEn}.`;
@@ -220,12 +261,16 @@ export function buildFallbackResult(
   const kwTag = keyword.trim() ? `#${keyword.trim().replace(/[\s,#]+/g, '').slice(0, 15)}` : '';
   const subject = template.subjects.find((s) => s.id === subjectId) || template.subjects[0];
   const protagonist = getProtagonist(template, protagonistId);
-  const lineKo = protagonist?.lineKo || template.audio.lineKo;
+  const lineKo = getLineKo(template, subject.id, protagonist?.id);
   const sceneKo = protagonist
     ? template.fallback.sceneKo.replace(/^크리에이터가/, withSubjectParticle(protagonist.nameKo))
     : template.fallback.sceneKo;
   return {
-    captions: [...template.fallback.captions] as [string, string, string],
+    captions: (subject.captions || template.fallback.captions).map((c) => fillName(c, protagonist?.nameKo)) as [
+      string,
+      string,
+      string,
+    ],
     sceneKo: lineKo ? `${sceneKo} (대사: "${lineKo}")` : `${sceneKo} (대사 없이 음악·효과음만)`,
     flowPrompt: buildFlowPrompt(template, subject.id, template.fallback.sceneEn, protagonist?.id),
     canvaUrl:

@@ -31,8 +31,12 @@ export interface SubjectOption {
    * 비워 두면 템플릿 기본 링크(ShortsTemplate.canvaUrl)가 열립니다.
    */
   canvaUrl: string;
-  /** 주인공을 고르는 템플릿에서, 주인공별 캔바 링크 (예: { male: '…', female: '…' }) */
+  /** 주인공을 고르는 템플릿에서, 주인공별로 캔바 링크를 따로 쓸 때만 (예: { male: '…', female: '…' }) */
   canvaUrlByProtagonist?: Record<string, string>;
+  /** 이 주제 영상의 한국어 대사. {name}은 주인공 이름으로 바뀝니다. */
+  lineKo?: string;
+  /** 이 주제의 기본 자막 3줄 (AI를 못 쓸 때). {name}은 주인공 이름으로 바뀝니다. */
+  captions?: [string, string, string];
 }
 
 /** 주인공을 바꿀 수 있는 템플릿의 주인공 선택지 (예: 남성 준호 / 여성 하은) */

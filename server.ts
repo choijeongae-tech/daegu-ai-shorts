@@ -184,7 +184,7 @@ app.post('/api/generate', async (req, res) => {
 
 [템플릿] ${template.title} — ${template.briefKo}
 [주인공] ${who}
-[영상 장면] ${template.fallback.sceneKo}
+[영상 장면] ${fallback.sceneKo}
 [분위기] ${mood.label} (${mood.tonePrompt})
 [관람객 키워드] ${userKeyword || '없음'}
 

@@ -4,7 +4,7 @@
  */
 import fs from 'fs';
 import path from 'path';
-import { TEMPLATES, buildFlowPrompt } from '../src/data/templates.ts';
+import { TEMPLATES, buildFlowPrompt, getLineKo, fillName } from '../src/data/templates.ts';
 
 const lines: string[] = [
   `# 미리 만들 구글 Flow 영상 프롬프트 (${TEMPLATES.reduce((n, t) => n + t.subjects.length * (t.protagonists?.length || 1), 0)}개)`,
@@ -24,14 +24,16 @@ for (const t of TEMPLATES) {
   for (const { p, s } of combos(t)) {
     const who = p ? `${p.label} / ${s.label}` : s.label;
     const file = p ? `${t.id}_${p.id}_${s.id}.mp4` : `${t.id}_${s.id}.mp4`;
-    const where = p ? `\`${t.id}\` → \`${s.id}\` → canvaUrlByProtagonist.${p.id}` : `\`${t.id}\` → \`${s.id}\` → canvaUrl`;
+    const where = s.canvaUrlByProtagonist
+      ? `\`${t.id}\` → \`${s.id}\` → canvaUrlByProtagonist.${p?.id}`
+      : `\`${t.id}\` → \`${s.id}\` → canvaUrl${p ? ' (주인공 공통)' : ''}`;
     lines.push(`| ☐ | ${t.title} | ${who} | ${file} | ${where} |`);
   }
 }
 
 for (const t of TEMPLATES) {
   const sound = t.protagonists?.length
-    ? t.protagonists.map((p) => `${p.label} 한국어 대사 "${p.lineKo}"`).join(' / ')
+    ? '주인공·주제마다 다른 한국어 대사 (아래 각 프롬프트 참고)'
     : t.audio.lineKo
       ? `한국어 대사 "${t.audio.lineKo}"`
       : '대사 없이 음악·효과음만';
@@ -39,7 +41,12 @@ for (const t of TEMPLATES) {
   for (const { p, s } of combos(t)) {
     const title = p ? `${p.label} · ${s.label}` : s.label;
     const file = p ? `${t.id}_${p.id}_${s.id}.mp4` : `${t.id}_${s.id}.mp4`;
-    lines.push('', `### ${title}  (\`${file}\`)`, '', '```', buildFlowPrompt(t, s.id, t.fallback.sceneEn, p?.id), '```');
+    const line = getLineKo(t, s.id, p?.id);
+    const caps = s.captions?.map((c) => fillName(c, p?.nameKo));
+    lines.push('', `### ${title}  (\`${file}\`)`);
+    if (line) lines.push('', `- 대사: ${line}`);
+    if (caps) lines.push(`- 기본 자막: ${caps.join(' / ')}`);
+    lines.push('', '```', buildFlowPrompt(t, s.id, t.fallback.sceneEn, p?.id), '```');
   }
 }
 
